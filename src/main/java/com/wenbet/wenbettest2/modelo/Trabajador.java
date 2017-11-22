@@ -5,6 +5,8 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.time.LocalDate;
+
 /**
  *  Representación de la tabla <b>Trabajador</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
  * <br> <i> - Relación unidireccional uno a uno {@link Direccion} (Sólo esta clase conoce la relación) </i>
@@ -17,6 +19,7 @@ public class Trabajador {
     private String nombre;
     private String puesto;
     private String comentarios;
+    private LocalDate fechaAlta;
     
     private Direccion direccion;
     

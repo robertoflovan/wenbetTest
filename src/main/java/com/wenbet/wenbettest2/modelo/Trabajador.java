@@ -16,13 +16,12 @@ import java.time.LocalDate;
 public class Trabajador {
     
     private long id;
-    private String nombre;
-    private String puesto;
-    private String comentarios;
-    private LocalDate fechaAlta;
+    private final StringProperty nombre;
+    private final StringProperty puesto;
+    private final StringProperty comentarios;
+    private final ObjectProperty<LocalDate> fechaAlta;
     
-    private Direccion direccion;
-    
+    private final ObjectProperty<Direccion> direccion;
     
     
 }

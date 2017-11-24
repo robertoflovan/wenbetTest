@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
 /**
  *  Representación de la tabla <b>Producto</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
  * Indica el producto que se realizará al cliente, con medidas si es aplicable.
- * <br> <i> - Relación bidireccional muchos a uno con {@link TipoProducto} </i>
+ * <br> <i> - Relación unidireccional muchos a uno con {@link TipoProducto} (Sólo esta clase conoce la relación) </i>
  * <br> <i> - Relación unidireccional uno a muchos con {@link TrabajoProducto} (Esta clase no conoce la relación)</i>
  * @author Roberto
  */

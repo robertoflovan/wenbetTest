@@ -34,11 +34,10 @@ public class TrabajoProducto {
     
 
     
-    public TrabajoProducto(int cantidad, double precio, Producto producto, Trabajo trabajo) {
+    public TrabajoProducto(int cantidad, double precio, Producto producto) {
         this.cantidad.set(cantidad);
         this.precio.set(precio);
         this.producto.set(producto);
-        this.trabajo.set(trabajo);
     }
     
     //Getters, setters and javafx properties

@@ -19,7 +19,7 @@ public class Actividad {
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
 
-    public Actividad() {
+    private Actividad() {
     }
 
     public Actividad(String nombre){

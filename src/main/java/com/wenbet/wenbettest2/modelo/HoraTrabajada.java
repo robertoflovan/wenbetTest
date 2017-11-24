@@ -5,7 +5,6 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
-import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +26,16 @@ public class HoraTrabajada {
     private final ObjectProperty<Actividad> actividad = new SimpleObjectProperty<>();
     private final ObjectProperty<Trabajador> trabajador = new SimpleObjectProperty<>();
     private final ObjectProperty<Trabajo> trabajo = new SimpleObjectProperty<>();
+
+    private HoraTrabajada() {
+    }
+    
+    public HoraTrabajada(String tiempoTrabajado, Actividad actividad, Trabajador trabajador, Trabajo trabajo) {
+        this.tiempoTrabajado.set(tiempoTrabajado);
+        this.actividad.set(actividad);
+        this.trabajador.set(trabajador);
+        this.trabajo.set(trabajo);
+    }
     
     
     //Getters setters and javafx properties

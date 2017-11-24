@@ -27,7 +27,7 @@ public class Trabajador {
     
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
 
-    public Trabajador() {
+    private Trabajador() {
     }
     
     public Trabajador(String nombre, String puesto, String comentarios, LocalDate fechaAlta, Direccion direccion) {

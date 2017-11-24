@@ -24,7 +24,7 @@ public class Direccion {
     private final StringProperty calle= new SimpleStringProperty();
     private final StringProperty numero= new SimpleStringProperty();
 
-    public Direccion() {
+    private Direccion() {
     }
     
     public Direccion(String ciudad, String colonia, String calle, String numero) {

@@ -5,7 +5,6 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
-import java.util.List;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,7 +26,7 @@ public class Cliente {
 
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
 
-    public Cliente() {
+    private Cliente() {
     }
 
     public Cliente(String nombre, String celular, String telefono, String comentarios, Direccion direccion) {

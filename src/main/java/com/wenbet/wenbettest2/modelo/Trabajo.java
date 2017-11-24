@@ -47,8 +47,12 @@ public class Trabajo {
         
     }
     
-    public Trabajo(List<TrabajoProducto> productosDelTrabajo){
-        ListUtil.llenarListProperty(this.productosDelTrabajo, productosDelTrabajo);
+    public Trabajo(LocalDate fechaAnticipo, Cliente cliente, List<TrabajoProducto> productosDelTrabajo){
+        this.fechaAnticipo.set(fechaAnticipo);
+        this.cliente.set(cliente);
+        for (TrabajoProducto trabajoProducto : productosDelTrabajo) {
+            this.privateAddProductoDeTrabajo(trabajoProducto);
+        }
     }
     
     
@@ -92,16 +96,21 @@ public class Trabajo {
     }
 
     public void setProductosDelTrabajo(List<TrabajoProducto> productosDelTrabajo){
-        ListUtil.llenarListProperty(this.productosDelTrabajo, productosDelTrabajo);
-        this.actualizarPrecioTotalTrabajo();
+        
+        for (TrabajoProducto trabajoProducto : productosDelTrabajo) { //No se utiliza la ListUtil porque necesito que cada vez que se agregue un producto del trabajo se actualize el trabajo asignada a cada TrabajoProducto
+            this.addProductoDeTrabajo(trabajoProducto);
+        }
     }
 
-    public void addProductoDeTrabajo(TrabajoProducto productoDeTrabajo){
+    private void privateAddProductoDeTrabajo(TrabajoProducto productoDeTrabajo){
             productosDelTrabajo.add(productoDeTrabajo);
             productoDeTrabajo.setTrabajo(this);
             this.actualizarPrecioTotalTrabajo();
     }
     
+    public void addProductoDeTrabajo(TrabajoProducto productoDeTrabajo){
+            this.privateAddProductoDeTrabajo(productoDeTrabajo);
+    }
     
     
     //Color

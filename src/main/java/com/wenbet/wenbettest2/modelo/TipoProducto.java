@@ -5,16 +5,13 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
-import Util.ListUtil;
-import java.util.List;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
  *  Representación de la tabla <b>TipoProducto</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
  * Indica el tipo de producto del trabajo realizado, como protecció, barandal, techo...
- * <br> <i> - Relación bidireccional uno a muchos {@link Producto)} </i>
+ * <br> <i> - Relación unidireccional uno a muchos con {@link Producto)} (Esta clase no conoce la relación) </i>
  * asd {@link Producto)}
  * @author Roberto
  */
@@ -24,12 +21,11 @@ public class TipoProducto {
     
     private final StringProperty nombre = new SimpleStringProperty();
     
-    private final ListProperty<Producto> productos = ListUtil.inicializarListProperty();
     
     private TipoProducto(){
     }
     
-    private TipoProducto(String nombre){
+    public TipoProducto(String nombre){
         this.nombre.set(nombre);
     }
     
@@ -54,21 +50,5 @@ public class TipoProducto {
     public final StringProperty nombreProperty() {
         return nombre;
     }
-    
-    //productos
-    public List<Producto> getProductos(){
-        return productos.get();
-    }
 
-    public void setProductos(List<Producto> productos){
-        ListUtil.llenarListProperty(this.productos, productos);
-    }
-
-    public void addProducto(Producto producto){
-            productos.add(producto);
-            producto.setTipoProducto(this);
-    }
-    
-    
-    
 }

@@ -5,7 +5,7 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
-import Util.ListUtil;
+import com.wenbet.wenbettest2.util.ListUtil;
 import java.time.LocalDate;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;

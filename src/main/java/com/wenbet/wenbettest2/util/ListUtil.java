@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Util;
+package com.wenbet.wenbettest2.util;
 
 
 import com.wenbet.wenbettest2.modelo.TrabajoProducto;

@@ -32,7 +32,21 @@ public class HibernateUtil
     }
     
     
+    private Session session;
+
+    public HibernateUtil() {
+    }
     
+    public Session iniciarOperacion() {
+        session = com.wenbet.wenbettest2.util.HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        return session;
+    }
+    
+    public void terminaOperacion(){
+        session.getTransaction().commit();
+        session.close();
+    }
     
     
 }

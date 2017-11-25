@@ -35,7 +35,7 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
 //    }
 
     @Override
-    public Entity Buscar(K id) {
+    public Entity getEntidad(K id) {
         Entity returnValue = (Entity) HU.iniciarOperacion().get(domainClass, id);
         HU.terminaOperacion();
         return returnValue;
@@ -62,9 +62,11 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
     }
 
     @Override
-    public void Eliminar(Entity t) {
-        HU.iniciarOperacion().delete(t);
-        HU.terminaOperacion();
+    public void Eliminar(Entity t) throws HibernateException{
+ 
+            HU.iniciarOperacion().delete(t);
+            HU.terminaOperacion();
+        
     }
     
     @Override

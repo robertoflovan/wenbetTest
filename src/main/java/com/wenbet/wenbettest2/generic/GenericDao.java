@@ -21,7 +21,7 @@ public interface GenericDao<Entity, PK extends Serializable> {
     
     public void Actualizar(Entity t) throws UnableToSaveException;
     
-    public Entity Buscar(PK id);
+    public Entity getEntidad(PK id);
     
     public void Eliminar(Entity t);
     

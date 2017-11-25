@@ -38,7 +38,7 @@ public class HibernateUtil
     }
     
     public Session iniciarOperacion() {
-        session = com.wenbet.wenbettest2.util.HibernateUtil.getSessionFactory().openSession();
+        session = getSessionFactory().openSession();
         session.beginTransaction();
         return session;
     }

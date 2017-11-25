@@ -21,10 +21,7 @@
         <property name="hbm2ddl.auto">create-drop</property>
 
         <!-- Aqui iran las clases mapeadas -->
-        <mapping class="hibernate.parametros.modelo.Direccion" />
-        <mapping class="hibernate.parametros.modelo.Compra" />
-        <mapping class="hibernate.parametros.modelo.Producto" />
-        <mapping class="hibernate.parametros.modelo.Usuario" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Actividad" />
 
     </session-factory>
 </hibernate-configuration>

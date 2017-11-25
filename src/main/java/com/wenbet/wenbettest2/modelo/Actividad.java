@@ -25,7 +25,7 @@ public class Actividad implements Serializable{
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
 
-    private Actividad() {
+    public Actividad() {
     }
 
     public Actividad(String nombre){
@@ -40,15 +40,15 @@ public class Actividad implements Serializable{
         return id;
     }
 
-    protected void setId(long id) {
+    private void setId(long id) {
         this.id = id;
     }
 
-    public final void setNombre(String value) {
+    public void setNombre(String value) {
         nombre.set(value);
     }
 
-    public final String getNombre() {
+    public String getNombre() {
         return nombre.get();
     }
 

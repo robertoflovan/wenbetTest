@@ -9,15 +9,15 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
+import com.wenbet.wenbettest2.util.HibernateUtil;
 import java.util.List;
 
 public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDao<Entity, K> {
 
     public Class<Entity> domainClass = getDomainClass();
-    private Session session;
+    private static final HibernateUtil HU = new HibernateUtil();
 
     protected Class getDomainClass() {
         if (domainClass == null) {
@@ -28,24 +28,24 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
         return domainClass;
     }
 
-    private Session getHibernateTemplate() {
-        session = com.wenbet.wenbettest2.util.HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        return session;
-    }
+//    private Session getHibernateTemplate() {
+//        session = com.wenbet.wenbettest2.util.HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        return session;
+//    }
 
     @Override
     public Entity Buscar(K id) {
-        Entity returnValue = (Entity) getHibernateTemplate().load(domainClass, id);
-        session.getTransaction().commit();
+        Entity returnValue = (Entity) HU.iniciarOperacion().get(domainClass, id);
+        HU.terminaOperacion();
         return returnValue;
     }
 
     @Override
     public void Actualizar(Entity t) throws UnableToSaveException {
         try {
-            getHibernateTemplate().update(t);
-            session.getTransaction().commit();
+            HU.iniciarOperacion().update(t);
+            HU.terminaOperacion();
         } catch (HibernateException e) {
             throw new UnableToSaveException(e);
         }
@@ -54,8 +54,8 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
     @Override
     public void Guardar(Entity t) throws UnableToSaveException {
         try {
-            getHibernateTemplate().save(t);
-            session.getTransaction().commit();
+            HU.iniciarOperacion().save(t);
+            HU.terminaOperacion();
         } catch (HibernateException e) {
             throw new UnableToSaveException(e);
         }
@@ -63,15 +63,15 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
 
     @Override
     public void Eliminar(Entity t) {
-        getHibernateTemplate().delete(t);
-        session.getTransaction().commit();
+        HU.iniciarOperacion().delete(t);
+        HU.terminaOperacion();
     }
     
     @Override
     public List<Entity> obtenerLista(){
-        String query = "FROM " + domainClass.getSimpleName() + " x";
-        List<Entity> list = getHibernateTemplate().createQuery(query,domainClass).getResultList();
-        session.getTransaction().commit();
+        //String query = "FROM " + domainClass.getSimpleName() + " x";
+        List<Entity> list = HU.iniciarOperacion().createQuery("FROM " + domainClass.getSimpleName()).list();
+        HU.terminaOperacion();
         return list;
     }
 }

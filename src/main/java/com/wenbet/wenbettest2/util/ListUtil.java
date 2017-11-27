@@ -6,7 +6,6 @@
 package com.wenbet.wenbettest2.util;
 
 
-import com.wenbet.wenbettest2.modelo.TrabajoProducto;
 import java.util.List;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -26,7 +25,7 @@ public class ListUtil {
      * @return un objeto ListProperty inicializado con observableList
      */
     public static <T> ListProperty<T> inicializarListProperty(){
-        final ObservableList<T> observableList = FXCollections.observableArrayList();
+        ObservableList<T> observableList = FXCollections.observableArrayList();
         return new SimpleListProperty<>(observableList);
     }
     

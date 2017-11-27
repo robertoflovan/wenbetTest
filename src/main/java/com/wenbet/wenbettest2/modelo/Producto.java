@@ -5,10 +5,16 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *  Representación de la tabla <b>Producto</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -17,7 +23,8 @@ import javafx.beans.property.StringProperty;
  * <br> <i> - Relación unidireccional uno a muchos con {@link TrabajoProducto} (Esta clase no conoce la relación)</i>
  * @author Roberto
  */
-public class Producto {
+@Entity
+public class Producto implements Serializable{
     
     private long id;
     
@@ -34,12 +41,13 @@ public class Producto {
     }
     
     //Setters, getters and javafx properties
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,6 +69,7 @@ public class Producto {
         //TODO
     }
 
+    @ManyToOne
     public final TipoProducto getTipoProducto() {
         return tipoProducto.get();
     }

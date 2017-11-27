@@ -26,6 +26,10 @@
         <mapping class="com.wenbet.wenbettest2.modelo.Trabajador" />
         <mapping class="com.wenbet.wenbettest2.modelo.Cliente" />
         <mapping class="com.wenbet.wenbettest2.modelo.HoraTrabajada" />
+        <mapping class="com.wenbet.wenbettest2.modelo.TipoProducto" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Producto" />
+        <mapping class="com.wenbet.wenbettest2.modelo.TrabajoProducto" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Trabajo" />
         
 
     </session-factory>

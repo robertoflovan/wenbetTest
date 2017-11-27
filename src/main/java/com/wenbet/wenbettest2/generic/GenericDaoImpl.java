@@ -17,7 +17,7 @@ import java.util.List;
 public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDao<Entity, K> {
 
     public Class<Entity> domainClass = getDomainClass();
-    private static final HibernateUtil HU = new HibernateUtil();
+    protected static final HibernateUtil HU = new HibernateUtil();
 
     protected Class getDomainClass() {
         if (domainClass == null) {

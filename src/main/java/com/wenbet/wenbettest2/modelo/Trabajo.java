@@ -6,15 +6,28 @@
 package com.wenbet.wenbettest2.modelo;
 
 import com.wenbet.wenbettest2.util.ListUtil;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 /**
  *  Representación de la tabla <b>Trabajo</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -23,7 +36,8 @@ import javafx.beans.property.StringProperty;
  * <br> <i> - Relación unidireccional uno a muchos con {@link HoraTrabajada} (Esta clase no conoce la relación) </i>
  * @author Roberto
  */
-public class Trabajo {
+@Entity
+public class Trabajo implements Serializable{
     
     private long id;
     
@@ -32,7 +46,7 @@ public class Trabajo {
     private final ObjectProperty<LocalDate> fechaTermino = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> fechaInstalacion = new SimpleObjectProperty<>();
     
-    private final DoubleProperty precioTotal = new SimpleDoubleProperty();
+    
     private final StringProperty color = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
     
@@ -40,10 +54,10 @@ public class Trabajo {
     
         //private final ObservableList<TrabajoProducto> productosDelTrabajoObservableList = FXCollections.observableArrayList();
         //private final ListProperty<TrabajoProducto> productosDelTrabajo = new SimpleListProperty<>(productosDelTrabajoObservableList);
-    private final ListProperty<TrabajoProducto> productosDelTrabajo = ListUtil.inicializarListProperty();
+    private ListProperty<TrabajoProducto> productosDelTrabajo = ListUtil.inicializarListProperty();
     
     
-    private Trabajo() {
+    public Trabajo() {
         
     }
     
@@ -55,57 +69,36 @@ public class Trabajo {
         }
     }
     
-    
-    private void actualizarPrecioTotalTrabajo(){
-        double pt = 0;
-        for (TrabajoProducto trabajoProducto : productosDelTrabajo) {
-            pt += trabajoProducto.getPrecio();
-        }
-        this.setPrecioTotal(pt);
-    }
-    
+
     //Setters, getters and javafx properties
     
     //Id
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
     
     // otros
-    //Precio total 
-    private void setPrecioTotal(Double value) {
-        precioTotal.set(value);
-    }
-
-    public final Double getPrecioTotal() {
-        return precioTotal.get();
-    }
-
-    public final DoubleProperty precioTotalProperty() {
-        return precioTotal;
-    }
-
     //TrabajoProducto (productosDelTrabajo)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="trabajo")
     public List<TrabajoProducto> getProductosDelTrabajo(){
         return productosDelTrabajo.get();
     }
 
     public void setProductosDelTrabajo(List<TrabajoProducto> productosDelTrabajo){
-        
-        for (TrabajoProducto trabajoProducto : productosDelTrabajo) { //No se utiliza la ListUtil porque necesito que cada vez que se agregue un producto del trabajo se actualize el trabajo asignada a cada TrabajoProducto
-            this.addProductoDeTrabajo(trabajoProducto);
-        }
+        ObservableList<TrabajoProducto> observableList = FXCollections.observableArrayList(productosDelTrabajo);
+        this.productosDelTrabajo = new SimpleListProperty<>(observableList);
     }
 
     private void privateAddProductoDeTrabajo(TrabajoProducto productoDeTrabajo){
-            productosDelTrabajo.add(productoDeTrabajo);
+            productosDelTrabajo.get().add(productoDeTrabajo);
             productoDeTrabajo.setTrabajo(this);
-            this.actualizarPrecioTotalTrabajo();
+            //this.actualizarPrecioTotalTrabajo();
     }
     
     public void addProductoDeTrabajo(TrabajoProducto productoDeTrabajo){
@@ -196,6 +189,7 @@ public class Trabajo {
         cliente.set(value);
     }
 
+    @ManyToOne
     public final Cliente getCliente() {
         return cliente.get();
     }

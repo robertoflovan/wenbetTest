@@ -52,7 +52,7 @@ public class HoraTrabajada implements Serializable{
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -98,6 +98,7 @@ public class HoraTrabajada implements Serializable{
         trabajo.set(value);
     }
 
+    @ManyToOne
     public final Trabajo getTrabajo() {
         return trabajo.get();
     }

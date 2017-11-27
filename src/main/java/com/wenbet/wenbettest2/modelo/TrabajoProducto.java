@@ -5,12 +5,18 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *  Representación de la tabla <b>TrabajoProducto</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -19,7 +25,8 @@ import javafx.beans.property.SimpleObjectProperty;
  * <br> <i> - Relación unidireccional muchos a uno con {@link Producto} (Sólo esta clase conoce la relación) </i>
  * @author Roberto
  */
-public class TrabajoProducto {
+@Entity
+public class TrabajoProducto implements Serializable{
     
     private long id;
     
@@ -29,7 +36,7 @@ public class TrabajoProducto {
     private final ObjectProperty<Producto> producto = new SimpleObjectProperty<>();
     private final ObjectProperty<Trabajo> trabajo = new SimpleObjectProperty<>();
 
-    private TrabajoProducto() {
+    public TrabajoProducto() {
     }
     
 
@@ -41,12 +48,13 @@ public class TrabajoProducto {
     }
     
     //Getters, setters and javafx properties
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -79,6 +87,7 @@ public class TrabajoProducto {
         producto.set(value);
     }
 
+    @ManyToOne
     public final Producto getProducto() {
         return producto.get();
     }
@@ -92,6 +101,7 @@ public class TrabajoProducto {
         trabajo.set(value);
     }
 
+    @ManyToOne
     public final Trabajo getTrabajo() {
         return trabajo.get();
     }

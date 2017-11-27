@@ -5,10 +5,16 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *  Representación de la tabla <b>HoraTrabajada</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -18,7 +24,8 @@ import javafx.beans.property.StringProperty;
  * <br> <i> - Relación unidireccional muchos a uno con {@link Trabajo} (Sólo esta clase conoce la relación) </i>
  * @author Roberto
  */
-public class HoraTrabajada {
+@Entity
+public class HoraTrabajada implements Serializable{
     
     private long id;
     private final StringProperty tiempoTrabajado = new SimpleStringProperty(); //TODO
@@ -27,7 +34,7 @@ public class HoraTrabajada {
     private final ObjectProperty<Trabajador> trabajador = new SimpleObjectProperty<>();
     private final ObjectProperty<Trabajo> trabajo = new SimpleObjectProperty<>();
 
-    private HoraTrabajada() {
+    public HoraTrabajada() {
     }
     
     public HoraTrabajada(String tiempoTrabajado, Actividad actividad, Trabajador trabajador, Trabajo trabajo) {
@@ -39,7 +46,8 @@ public class HoraTrabajada {
     
     
     //Getters setters and javafx properties
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -64,6 +72,7 @@ public class HoraTrabajada {
         actividad.set(value);
     }
 
+    @ManyToOne
     public final Actividad getActividad() {
         return actividad.get();
     }
@@ -76,6 +85,7 @@ public class HoraTrabajada {
         trabajador.set(value);
     }
 
+    @ManyToOne
     public final Trabajador getTrabajador() {
         return trabajador.get();
     }

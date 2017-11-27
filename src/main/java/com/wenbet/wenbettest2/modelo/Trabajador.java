@@ -5,11 +5,18 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *  Representación de la tabla <b>Trabajador</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -17,7 +24,8 @@ import javafx.beans.property.SimpleStringProperty;
  * <br> <i> - Relación unidireccional uno a muchos con {@link HoraTrabajada} (Esta clase no conoce la relación) </i>
  * @author Roberto
  */
-public class Trabajador {
+@Entity
+public class Trabajador implements Serializable{
     
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
@@ -27,7 +35,7 @@ public class Trabajador {
     
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
 
-    private Trabajador() {
+    public Trabajador() {
     }
     
     public Trabajador(String nombre, String puesto, String comentarios, LocalDate fechaAlta, Direccion direccion) {
@@ -40,6 +48,8 @@ public class Trabajador {
     }
     
     //Getters, setters and properties
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId(){
         return id;
     }
@@ -84,6 +94,30 @@ public class Trabajador {
         return comentarios;
     }
 
+    //<LocalDate> fechaAlta
+    public final void setFechaAlta(LocalDate value) {
+        fechaAlta.set(value);
+    }
+
+    public final LocalDate getFechaAlta() {
+        return fechaAlta.get();
+    }
+
+    public final ObjectProperty fechaAltaProperty() {
+        return fechaAlta;
+    }
     
-    
+    //<Direccion> direccion
+    public final void setDireccion(Direccion value) {
+        direccion.set(value);
+    }
+
+    @OneToOne(cascade={CascadeType.ALL}) 
+    public final Direccion getDireccion() {
+        return direccion.get();
+    }
+
+    public final ObjectProperty direccionProperty() {
+        return direccion;
+    }
 }

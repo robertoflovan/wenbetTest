@@ -7,6 +7,7 @@ package com.wenbet.wenbettest2.service;
 
 import com.wenbet.wenbettest2.dao.ActividadDAO;
 import com.wenbet.wenbettest2.dao.IActividadDAO;
+import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Actividad;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class ActividadService implements IActividadService{
 
-    private IActividadDAO actividadDAO;
+    private final IActividadDAO actividadDAO;
 
     public ActividadService() {
         actividadDAO = new ActividadDAO();
@@ -24,23 +25,30 @@ public class ActividadService implements IActividadService{
 
     
     @Override
-    public void GuardarActividad(Actividad actividadGuardar) {
-        //actividadDAO.Guardar(actividadGuardar);
+    public long GuardarActividad(Actividad actividadGuardar) throws UnableToSaveException {
+        return actividadDAO.Guardar(actividadGuardar);
     }
 
     @Override
-    public void ActualizarActividad(Actividad actividadActualizar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void ActualizarActividad(Actividad actividadActualizar) throws UnableToSaveException {
+        actividadDAO.Actualizar(actividadActualizar);
     }
 
     @Override
     public void EliminarActividad(Actividad actividadEliminar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        actividadDAO.Eliminar(actividadEliminar);
     }
 
     @Override
     public List<Actividad> ListarActividades() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return actividadDAO.obtenerLista();
     }
+
+    @Override
+    public Actividad getActividad(long id) {
+        return actividadDAO.getEntidad(id);
+    }
+    
+    
     
 }

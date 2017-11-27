@@ -52,13 +52,15 @@ public class GenericDaoImpl<Entity, K extends Serializable> implements GenericDa
     }
 
     @Override
-    public void Guardar(Entity t) throws UnableToSaveException {
+    public K Guardar(Entity t) throws UnableToSaveException {
+        K id = null;
         try {
-            HU.iniciarOperacion().save(t);
+            id = (K) HU.iniciarOperacion().save(t);
             HU.terminaOperacion();
         } catch (HibernateException e) {
             throw new UnableToSaveException(e);
         }
+        return id;
     }
 
     @Override

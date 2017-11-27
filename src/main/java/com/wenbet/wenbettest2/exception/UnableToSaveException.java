@@ -7,7 +7,7 @@ package com.wenbet.wenbettest2.exception;
 
 /**
  *
- * @author usuario
+ * @author Roberto
  */
 public class UnableToSaveException extends Exception{
 

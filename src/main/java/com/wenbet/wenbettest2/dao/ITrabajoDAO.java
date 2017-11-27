@@ -6,12 +6,12 @@
 package com.wenbet.wenbettest2.dao;
 
 import com.wenbet.wenbettest2.generic.GenericDao;
-import com.wenbet.wenbettest2.modelo.Actividad;
+import com.wenbet.wenbettest2.modelo.Trabajo;
 
 /**
  *
  * @author Roberto
  */
-public interface IActividadDAO extends GenericDao<Actividad, Long>{
+public interface ITrabajoDAO extends GenericDao<Trabajo, Long>{
     
 }

@@ -5,8 +5,10 @@
  */
 package com.wenbet.wenbettest2.service;
 
+import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Actividad;
 import java.util.List;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -14,17 +16,13 @@ import java.util.List;
  */
 public interface IActividadService {
     
-    /**
-     * Prueba doc
-     * @param actividadGuardar 
-     */
-    public void GuardarActividad(Actividad actividadGuardar);
+    public long GuardarActividad(Actividad actividadGuardar) throws UnableToSaveException;
     
-    public void ActualizarActividad(Actividad actividadActualizar);
+    public void ActualizarActividad(Actividad actividadActualizar) throws UnableToSaveException;
      
-    public void EliminarActividad(Actividad actividadEliminar);
+    public void EliminarActividad(Actividad actividadEliminar) throws HibernateException;
     
-    //public Actividad buscarActividad();
+    public Actividad getActividad(long id);
      
     public List<Actividad> ListarActividades();
      

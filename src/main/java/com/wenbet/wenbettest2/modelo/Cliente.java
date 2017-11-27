@@ -5,10 +5,17 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *  Representación de la tabla <b>Cliente</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -16,7 +23,8 @@ import javafx.beans.property.StringProperty;
  * <br> <i> - Relación unidireccional uno a muchos con {@link Trabajo} (Esta clase no conoce la) </i>
  * @author Roberto
  */
-public class Cliente {
+@Entity
+public class Cliente implements Serializable{
     
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
@@ -26,7 +34,8 @@ public class Cliente {
 
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
 
-    private Cliente() {
+    
+    public Cliente() {
     }
 
     public Cliente(String nombre, String celular, String telefono, String comentarios, Direccion direccion) {
@@ -40,6 +49,8 @@ public class Cliente {
     
     
     //Getters, setters and javafx properties
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -97,6 +108,18 @@ public class Cliente {
         return comentarios;
     }
     
-    
+    //Direccion
+    public final void setDireccion(Direccion value) {
+        direccion.set(value);
+    }
+
+    @OneToOne(cascade={CascadeType.ALL})
+    public final Direccion getDireccion() {
+        return direccion.get();
+    }
+
+    public final ObjectProperty direccionProperty() {
+        return direccion;
+    }
     
 }

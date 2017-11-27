@@ -22,6 +22,11 @@
 
         <!-- Aqui iran las clases mapeadas -->
         <mapping class="com.wenbet.wenbettest2.modelo.Actividad" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Direccion" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Trabajador" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Cliente" />
+        <mapping class="com.wenbet.wenbettest2.modelo.HoraTrabajada" />
+        
 
     </session-factory>
 </hibernate-configuration>

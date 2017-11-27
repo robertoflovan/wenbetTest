@@ -5,8 +5,13 @@
  */
 package com.wenbet.wenbettest2.modelo;
 
+import java.io.Serializable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *  Representación de la tabla <b>Direccion</b> en la BD, la clase será un Bean para javaFx con anotaciones para hibernate.
@@ -16,7 +21,8 @@ import javafx.beans.property.StringProperty;
  * <br> <i> - Relación unidireccional uno a uno con {@link Cliente} (Esta clase no conoce la dirección) </i>
  * @author Roberto
  */
-public class Direccion {
+@Entity
+public class Direccion implements Serializable{
     
     private long id;
     private final StringProperty ciudad = new SimpleStringProperty();
@@ -24,7 +30,7 @@ public class Direccion {
     private final StringProperty calle= new SimpleStringProperty();
     private final StringProperty numero= new SimpleStringProperty();
 
-    private Direccion() {
+    public Direccion() {
     }
     
     public Direccion(String ciudad, String colonia, String calle, String numero) {
@@ -35,7 +41,8 @@ public class Direccion {
     }
     
     //Getters, setters and javafx properties
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

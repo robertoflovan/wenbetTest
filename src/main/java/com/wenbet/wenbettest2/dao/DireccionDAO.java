@@ -5,13 +5,13 @@
  */
 package com.wenbet.wenbettest2.dao;
 
-import com.wenbet.wenbettest2.generic.GenericDao;
-import com.wenbet.wenbettest2.modelo.Actividad;
+import com.wenbet.wenbettest2.generic.GenericDaoImpl;
+import com.wenbet.wenbettest2.modelo.Direccion;
 
 /**
  *
  * @author Roberto
  */
-public interface IActividadDAO extends GenericDao<Actividad, Long>{
+public class DireccionDAO extends GenericDaoImpl<Direccion, Long> implements IDireccionDAO{
     
 }

@@ -5,6 +5,8 @@
  */
 package com.wenbet.wenbettest2.test;
 
+import com.wenbet.wenbettest2.dao.DireccionDAO;
+import com.wenbet.wenbettest2.dao.TrabajadorDAO;
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Actividad;
 import com.wenbet.wenbettest2.modelo.Cliente;
@@ -34,10 +36,9 @@ import java.util.logging.Logger;
  *
  * @author Roberto
  */
-public class TestHoraTrabajada {
+public class TestDatosPrueba {
     
-    public static void main(String[] args) {
-        
+    public static void datosPrueba(){
         HoraTrabajadaService hts = new HoraTrabajadaService();
         TrabajadorService ts = new TrabajadorService();
         ActividadService as = new ActividadService();
@@ -108,12 +109,7 @@ public class TestHoraTrabajada {
         } catch (UnableToSaveException ex) {
             Logger.getLogger(TestHoraTrabajada.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("c murio");
-        } finally {
-            System.exit(0);
         }
-        
-        
-        
     }
     
 }

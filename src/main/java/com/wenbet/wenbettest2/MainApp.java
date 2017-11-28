@@ -1,6 +1,8 @@
 package com.wenbet.wenbettest2;
 
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.test.TestDatosPrueba;
+import com.wenbet.wenbettest2.view.TrabajoPrincipalController;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -23,6 +25,8 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("WenbetTest");
 
+        TestDatosPrueba.datosPrueba();
+        
         initRootLayout();
 
         showTrabajoPrincipal();
@@ -59,6 +63,11 @@ public class MainApp extends Application {
 
             // coloca la ventana de trabajo en la ventana principal (borderpane)
             rootLayout.setCenter(personOverview);
+            
+            // Give the controller access to the main app.
+            TrabajoPrincipalController controller = loader.getController();
+            System.out.println("TrabajoPrincipalController controller = loader.getController();");
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

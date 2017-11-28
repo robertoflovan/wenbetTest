@@ -30,6 +30,8 @@
         <mapping class="com.wenbet.wenbettest2.modelo.Producto" />
         <mapping class="com.wenbet.wenbettest2.modelo.TrabajoProducto" />
         <mapping class="com.wenbet.wenbettest2.modelo.Trabajo" />
+        <mapping class="com.wenbet.wenbettest2.modelo.EstadoTrabajo" />
+        <mapping class="com.wenbet.wenbettest2.modelo.Pago" />
         
 
     </session-factory>

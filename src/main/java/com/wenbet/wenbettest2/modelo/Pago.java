@@ -10,6 +10,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import javax.persistence.ManyToOne;
  * <br> <i> - Relación bidireccional muchos a uno con {@link Trabajo} </i>
  * @author Roberto
  */
+@Entity
 public class Pago {
     
     private long id;

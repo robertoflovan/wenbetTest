@@ -7,11 +7,15 @@ package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.service.TrabajoService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -62,14 +66,26 @@ public class TrabajoPrincipalController implements Initializable {
     public TrabajoPrincipalController() {
         // Initialize the person table with the two columns.
         
+//        idColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
+//        );
+//        clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
+//        coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().getDireccion().coloniaProperty());
+//        estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
+//        costoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+//        saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+
+        
+
         idColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
+                new SimpleStringProperty(String.valueOf(1))
         );
-        clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
-        coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().getDireccion().coloniaProperty());
-        estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
-        costoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
-        saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+        clienteColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
+        coloniaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
+        estadoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
+        costoColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(1));
+        saldoColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(1));
+
     }
     
     /**
@@ -89,7 +105,12 @@ public class TrabajoPrincipalController implements Initializable {
         this.mainApp = mainApp;
 
         // Add observable list data to the table TODO
-        trabajoTable.setItems(null);
+        TrabajoService ts = new TrabajoService();
+        ObservableList<Trabajo> data = FXCollections.observableArrayList(ts.ListarTrabajos());
+        System.out.println("asdasdasd");
+        System.out.println(ts.ListarTrabajos().size());
+        System.out.println("baia baia ");
+        trabajoTable.setItems(data);
     }
     
 }

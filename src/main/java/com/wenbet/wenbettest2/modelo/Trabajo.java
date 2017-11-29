@@ -34,6 +34,8 @@ import javax.persistence.Transient;
  * <br> <i> - Relación unidireccional muchos a uno con {@link Cliente} (Sólo esta clase conoce la relación) </i>
  * <br> <i> - Relación bidireccional uno a muchos con {@link TrabajoProducto} </i>
  * <br> <i> - Relación unidireccional uno a muchos con {@link HoraTrabajada} (Esta clase no conoce la relación) </i>
+ * <br> <i> - Relación unidireccional uno a muchos con {@link EstadoTrabajo} (Sólo esta clase conoce la relación) </i>
+ * <br> <i> - Relación bidireccional uno a muchos con {@link Pago}  </i>
  * @author Roberto
  */
 @Entity
@@ -49,12 +51,15 @@ public class Trabajo implements Serializable{
     
     private final StringProperty color = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
+    private final DoubleProperty costoTotal = new SimpleDoubleProperty();
     
     private final ObjectProperty<Cliente> cliente = new SimpleObjectProperty<>();
+    private final ObjectProperty<EstadoTrabajo> estado = new SimpleObjectProperty<>();
     
         //private final ObservableList<TrabajoProducto> productosDelTrabajoObservableList = FXCollections.observableArrayList();
         //private final ListProperty<TrabajoProducto> productosDelTrabajo = new SimpleListProperty<>(productosDelTrabajoObservableList);
     private ListProperty<TrabajoProducto> productosDelTrabajo = ListUtil.inicializarListProperty();
+    private ListProperty<Pago> pagos = ListUtil.inicializarListProperty();
     
     
     public Trabajo() {
@@ -105,16 +110,32 @@ public class Trabajo implements Serializable{
             this.privateAddProductoDeTrabajo(productoDeTrabajo);
     }
     
+    //TrabajoProducto (productosDelTrabajo)
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="trabajo")
+    public List<Pago> getPagos(){
+        return pagos.get();
+    }
+
+    public void setPagos(List<Pago> pagosTrabajo){
+        ObservableList<Pago> observableList = FXCollections.observableArrayList(pagosTrabajo);
+        this.pagos = new SimpleListProperty<>(observableList);
+    }
+    
+    public void addPago(Pago pagoTrabajo){
+            pagos.get().add(pagoTrabajo);
+            pagoTrabajo.setTrabajo(this);
+    }
+    
     
     //Color
     public final void setColor(String value) {
         color.set(value);
     }
-
+    
     public final String getColor() {
         return color.get();
     }
-
+    
     public final StringProperty colorProperty() {
         return color;
     }
@@ -185,7 +206,7 @@ public class Trabajo implements Serializable{
     }
     
     //Cliente
-     public final void setCliente(Cliente value) {
+    public final void setCliente(Cliente value) {
         cliente.set(value);
     }
 
@@ -197,4 +218,33 @@ public class Trabajo implements Serializable{
     public final ObjectProperty clienteProperty() {
         return cliente;
     }
+
+    //Costo total
+    public final void setCostoTotal(Double value) {
+        costoTotal.set(value);
+    }
+
+    @Transient
+    public final Double getCostoTotal() {
+        return costoTotal.get();
+    }
+
+    public final DoubleProperty costoTotalProperty() {
+        return costoTotal;
+    }
+    
+    //Estado
+    public final void setEstado(EstadoTrabajo value) {
+        estado.set(value);
+    }
+
+    @ManyToOne
+    public final EstadoTrabajo getEstado() {
+        return estado.get();
+    }
+
+    public final ObjectProperty estadoProperty() {
+        return estado;
+    }
+    
 }

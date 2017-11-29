@@ -1,7 +1,56 @@
-.button {
-    -fx-font-weight: bold;
+.table-view .column-header-background .label{
+    -fx-font-weight: normal;
 }
 
 .titulo{
     -fx-font-size: 20px;
+}
+.etiqueta{
+    -fx-font-size: 14px;
+}
+
+.menu-bar {
+	-fx-background-color: white;
+}
+.menu-bar > .container > .menu-button {
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+}
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:showing {
+	-fx-background-color: #56c0e0;
+}
+
+.menu-item {
+	-fx-min-width: 200;
+}
+
+.menu-item:focused {
+	-fx-background-color: #f5f5f5;
+}
+
+.menu-item:focused > * {
+	-fx-text-fill: #262626;
+}
+.menu-item:focused .arrow {
+	-fx-background-color: #333333;
+}
+
+.check-menu-item:checked:hover > .left-container > .check,
+.check-menu-item:checked:focused > .left-container > .check,
+.radio-menu-item:checked:hover > .left-container > .radio,
+.radio-menu-item:checked:focused > .left-container > .radio {
+	-fx-background-color: #333333;
+}
+
+.context-menu {
+	-fx-border-radius: 4;
+	-fx-background-radius: 4;
+	-fx-border-color: #bebec0;
+}
+
+.context-menu > * {
+	-fx-padding: 5 0 5 0;
 }

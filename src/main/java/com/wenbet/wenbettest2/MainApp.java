@@ -6,6 +6,7 @@ import com.wenbet.wenbettest2.service.TipoProductoService;
 import com.wenbet.wenbettest2.service.TrabajoService;
 import com.wenbet.wenbettest2.test.TestDatosPrueba;
 import com.wenbet.wenbettest2.util.HibernateUtil;
+import com.wenbet.wenbettest2.util.VistaUtil;
 import com.wenbet.wenbettest2.view.TipoProductoPrincipalController;
 import com.wenbet.wenbettest2.view.TrabajoPrincipalController;
 import java.io.IOException;
@@ -98,27 +99,31 @@ public class MainApp extends Application {
      * Muestra la ventanta principal de trabajo
      */
     public void showTipoProductoPrincipal() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Give the controller access to the main app.
-            TipoProductoPrincipalController controller = loader.getController();
-            
-            TipoProductoService tps = new TipoProductoService();
-            List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
-            
-            controller.setTipoProductos(tipoProductos);
-            
-            // coloca la ventana de trabajo en la ventana principal (borderpane)
-            rootLayout.setCenter(personOverview);
-            
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TipoProductoService tps = new TipoProductoService();
+        List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
+        AnchorPane tipoProductoFXML = VistaUtil.showVistaPrincipal(tipoProductos, "tipoProducto");
+        rootLayout.setCenter(tipoProductoFXML);
+//        try {
+//            // Load person overview.
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
+//            AnchorPane personOverview = (AnchorPane) loader.load();
+//
+//            // Give the controller access to the main app.
+//            TipoProductoPrincipalController controller = loader.getController();
+//            
+//            TipoProductoService tps = new TipoProductoService();
+//            List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
+//            
+//            controller.setTipoProductos(tipoProductos);
+//            
+//            // coloca la ventana de trabajo en la ventana principal (borderpane)
+//            rootLayout.setCenter(personOverview);
+//            
+//            
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**

@@ -8,6 +8,7 @@ package com.wenbet.wenbettest2.util;
 import com.wenbet.wenbettest2.MainApp;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.service.TipoProductoService;
+import com.wenbet.wenbettest2.view.MyInitializable;
 import com.wenbet.wenbettest2.view.TipoProductoPrincipalController;
 import java.io.IOException;
 import java.io.Serializable;
@@ -22,12 +23,22 @@ import javafx.scene.layout.AnchorPane;
  */
 public class VistaUtil {
     
-    public static <T, P> void showTipoProductoPrincipal(List<P> data) {
+    
+    /**
+     * Método para mostrar una nueva vista principal, la cual tendrá una tabla que mostrará datos que se indiquen
+     * @param <T> Controlador de la vista que se mostrará
+     * @param <Entity> Entidad de la vista que se mostrará
+     * @param data datos que se mostrarán en la tabla
+     * @param tabla Nombre de la tabla
+     * @return 
+     */
+    public static <T extends MyInitializable, Entity> AnchorPane showVistaPrincipal(List<Entity> data, String tabla) {
+        AnchorPane overview = null;
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            overview = (AnchorPane) loader.load();
 
             // Give the controller access to the main app.
             T controller = loader.getController();
@@ -35,15 +46,17 @@ public class VistaUtil {
             //TipoProductoService tps = new TipoProductoService();
             //List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
             
-            //controller.setTipoProductos(data);
+            controller.setData(data);
             
             // coloca la ventana de trabajo en la ventana principal (borderpane)
             //rootLayout.setCenter(personOverview);
             
             
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return overview;
     }
     
 }

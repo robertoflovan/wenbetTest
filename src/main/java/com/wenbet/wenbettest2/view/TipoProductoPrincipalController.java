@@ -24,7 +24,7 @@ import javafx.scene.control.TableView;
  *
  * @author Roberto
  */
-public class TipoProductoPrincipalController implements Initializable {
+public class TipoProductoPrincipalController implements MyInitializable<TipoProducto> {
 
     @FXML
     private TableView<TipoProducto> tipoProductoTable;
@@ -37,9 +37,6 @@ public class TipoProductoPrincipalController implements Initializable {
     public TipoProductoPrincipalController() {
     }
     
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         idColumn.setCellValueFactory(cellData ->
@@ -51,6 +48,11 @@ public class TipoProductoPrincipalController implements Initializable {
     public void setTipoProductos(List<TipoProducto> tipoProductos){
         ObservableList<TipoProducto> data = FXCollections.observableArrayList(tipoProductos);
         tipoProductoTable.setItems(data);
+    }
+
+    @Override
+    public void setData(List<TipoProducto> data) {
+        setTipoProductos(data);
     }
     
 }

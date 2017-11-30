@@ -64,28 +64,6 @@ public class TrabajoPrincipalController implements Initializable {
      * The constructor is called before the initialize() method.
      */
     public TrabajoPrincipalController() {
-        // Initialize the person table with the two columns.
-        
-//        idColumn.setCellValueFactory(cellData ->
-//                new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
-//        );
-//        clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
-//        coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().getDireccion().coloniaProperty());
-//        estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
-//        costoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
-//        saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
-
-        
-
-        idColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(String.valueOf(1))
-        );
-        clienteColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
-        coloniaColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
-        estadoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(1)));
-        costoColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(1));
-        saldoColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(1));
-
     }
     
     /**
@@ -93,7 +71,16 @@ public class TrabajoPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //Initialize the person table with the two columns.
+        
+        idColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
+        );
+        clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
+        coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().getDireccion().coloniaProperty());
+        estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
+        costoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+        saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
     }
 
     /**

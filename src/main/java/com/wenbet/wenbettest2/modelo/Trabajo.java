@@ -8,7 +8,6 @@ package com.wenbet.wenbettest2.modelo;
 import com.wenbet.wenbettest2.util.ListUtil;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
@@ -36,6 +35,7 @@ import javax.persistence.Transient;
  * <br> <i> - Relación unidireccional uno a muchos con {@link HoraTrabajada} (Esta clase no conoce la relación) </i>
  * <br> <i> - Relación unidireccional uno a muchos con {@link EstadoTrabajo} (Sólo esta clase conoce la relación) </i>
  * <br> <i> - Relación bidireccional uno a muchos con {@link Pago}  </i>
+ * <br> <i> - Relación unidireccional uno a muchos con {@link Color} (Sólo esta clase conoce la relación) </i>
  * @author Roberto
  */
 @Entity
@@ -48,13 +48,13 @@ public class Trabajo implements Serializable{
     private final ObjectProperty<LocalDate> fechaTermino = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> fechaInstalacion = new SimpleObjectProperty<>();
     
-    
-    private final StringProperty color = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
     private final DoubleProperty costoTotal = new SimpleDoubleProperty();
     
     private final ObjectProperty<Cliente> cliente = new SimpleObjectProperty<>();
     private final ObjectProperty<EstadoTrabajo> estado = new SimpleObjectProperty<>();
+    private final ObjectProperty<Color> color = new SimpleObjectProperty<>();
+    private final ObjectProperty<TerminoPago> terminoPago = new SimpleObjectProperty<>();
     
         //private final ObservableList<TrabajoProducto> productosDelTrabajoObservableList = FXCollections.observableArrayList();
         //private final ListProperty<TrabajoProducto> productosDelTrabajo = new SimpleListProperty<>(productosDelTrabajoObservableList);
@@ -126,19 +126,6 @@ public class Trabajo implements Serializable{
             pagoTrabajo.setTrabajo(this);
     }
     
-    
-    //Color
-    public final void setColor(String value) {
-        color.set(value);
-    }
-    
-    public final String getColor() {
-        return color.get();
-    }
-    
-    public final StringProperty colorProperty() {
-        return color;
-    }
     
     //Comentarios
     public final void setComentarios(String value) {
@@ -245,6 +232,34 @@ public class Trabajo implements Serializable{
 
     public final ObjectProperty estadoProperty() {
         return estado;
+    }
+    
+    //Color
+    public final void setColor(Color value) {
+        color.set(value);
+    }
+
+    @ManyToOne
+    public final Color getColor() {
+        return color.get();
+    }
+
+    public final ObjectProperty colorProperty() {
+        return color;
+    }
+    
+    //Termino de pago
+    public final void setTerminoPago(TerminoPago value) {
+        terminoPago.set(value);
+    }
+
+    @ManyToOne
+    public final TerminoPago getTerminoPago() {
+        return terminoPago.get();
+    }
+
+    public final ObjectProperty terminoPagoProperty() {
+        return terminoPago;
     }
     
 }

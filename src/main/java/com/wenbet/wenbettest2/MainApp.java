@@ -6,13 +6,16 @@ import com.wenbet.wenbettest2.view.TrabajoPrincipalController;
 import java.io.IOException;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MainApp extends Application {
@@ -25,6 +28,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("WenbetTest");
 
+        //Colocar datos de prueba en la base de datos
         TestDatosPrueba.datosPrueba();
         
         initRootLayout();
@@ -45,7 +49,13 @@ public class MainApp extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            
+            primaryStage.setOnCloseRequest((WindowEvent t) -> {
+                Platform.exit();
+            });
+            
             primaryStage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +76,6 @@ public class MainApp extends Application {
             
             // Give the controller access to the main app.
             TrabajoPrincipalController controller = loader.getController();
-            System.out.println("TrabajoPrincipalController controller = loader.getController();");
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();

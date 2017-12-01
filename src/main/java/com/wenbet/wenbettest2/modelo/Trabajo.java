@@ -49,6 +49,7 @@ public class Trabajo implements Serializable{
     private final ObjectProperty<LocalDate> fechaInstalacion = new SimpleObjectProperty<>();
     
     private final StringProperty comentarios = new SimpleStringProperty();
+    private final StringProperty tiempoEstimadoTermino = new SimpleStringProperty();
     private final DoubleProperty costoTotal = new SimpleDoubleProperty();
     
     private final ObjectProperty<Cliente> cliente = new SimpleObjectProperty<>();
@@ -138,6 +139,19 @@ public class Trabajo implements Serializable{
 
     public final StringProperty comentariosProperty() {
         return comentarios;
+    }
+    
+    //tiempoEstimadoTermino
+    public final void setTiempoEstimadoTermino(String value) {
+        tiempoEstimadoTermino.set(value);
+    }
+
+    public final String getTiempoEstimadoTermino() {
+        return tiempoEstimadoTermino.get();
+    }
+
+    public final StringProperty tiempoEstimadoTerminoProperty() {
+        return tiempoEstimadoTermino;
     }
     
     //fechaAnticipo

@@ -101,7 +101,7 @@ public class MainApp extends Application {
     public void showTipoProductoPrincipal() {
         TipoProductoService tps = new TipoProductoService();
         List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
-        AnchorPane tipoProductoFXML = VistaUtil.showVistaPrincipal(tipoProductos, "tipoProducto");
+        AnchorPane tipoProductoFXML = VistaUtil.showVistaPrincipal(tipoProductos, "TipoProductoPrincipal");
         rootLayout.setCenter(tipoProductoFXML);
 //        try {
 //            // Load person overview.

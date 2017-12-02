@@ -29,15 +29,15 @@ public class VistaUtil {
      * @param <T> Controlador de la vista que se mostrará
      * @param <Entity> Entidad de la vista que se mostrará
      * @param data datos que se mostrarán en la tabla
-     * @param tabla Nombre de la tabla
-     * @return 
+     * @param tabla Nombre de la tabla en los recursos /fxml/, si el string normal es <code>/fxml/TipoProductoPrincipal.fxml</code> entonces sólo pasar un string con <code>TipoProductoPrincipal</code>
+     * @return la vista cargada en un AnchorPane
      */
     public static <T extends MyInitializable, Entity> AnchorPane showVistaPrincipal(List<Entity> data, String tabla) {
         AnchorPane overview = null;
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/"+tabla+".fxml"));
             overview = (AnchorPane) loader.load();
 
             // Give the controller access to the main app.

@@ -44,15 +44,11 @@ public class TipoProductoPrincipalController implements MyInitializable<TipoProd
         );
         nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
     }
-    
-    public void setTipoProductos(List<TipoProducto> tipoProductos){
-        ObservableList<TipoProducto> data = FXCollections.observableArrayList(tipoProductos);
-        tipoProductoTable.setItems(data);
-    }
 
     @Override
     public void setData(List<TipoProducto> data) {
-        setTipoProductos(data);
+        ObservableList<TipoProducto> tipoProductos = FXCollections.observableArrayList(data);
+        tipoProductoTable.setItems(tipoProductos);
     }
     
 }

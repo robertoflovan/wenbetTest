@@ -5,8 +5,13 @@
 .titulo{
     -fx-font-size: 20px;
 }
+
 .etiqueta{
     -fx-font-size: 14px;
+}
+
+.subtitulo{
+    -fx-font-size: 16px;
 }
 
 .menu-bar {

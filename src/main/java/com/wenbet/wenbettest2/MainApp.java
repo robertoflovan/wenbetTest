@@ -1,15 +1,18 @@
 package com.wenbet.wenbettest2;
 
+import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.service.TipoProductoService;
+import com.wenbet.wenbettest2.service.TrabajoService;
 import com.wenbet.wenbettest2.test.TestDatosPrueba;
+import com.wenbet.wenbettest2.util.HibernateUtil;
+import com.wenbet.wenbettest2.view.TipoProductoPrincipalController;
 import com.wenbet.wenbettest2.view.TrabajoPrincipalController;
 import java.io.IOException;
+import java.util.List;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +36,8 @@ public class MainApp extends Application {
         
         initRootLayout();
 
-        showTrabajoPrincipal();
+        //showTrabajoPrincipal();
+        showTipoProductoPrincipal();
     }
 
     /**
@@ -52,6 +56,7 @@ public class MainApp extends Application {
             
             primaryStage.setOnCloseRequest((WindowEvent t) -> {
                 Platform.exit();
+                HibernateUtil.getSessionFactory().close(); //TODO
             });
             
             primaryStage.show();
@@ -71,12 +76,46 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/fxml/TrabajoPrincipal.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
-            // coloca la ventana de trabajo en la ventana principal (borderpane)
-            rootLayout.setCenter(personOverview);
-            
             // Give the controller access to the main app.
             TrabajoPrincipalController controller = loader.getController();
             controller.setMainApp(this);
+            
+            TrabajoService ts = new TrabajoService();
+            List<Trabajo> trabajos = ts.ListarTrabajos();
+            
+            controller.setTrabajos(trabajos);
+            
+            // coloca la ventana de trabajo en la ventana principal (borderpane)
+            rootLayout.setCenter(personOverview);
+            
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Muestra la ventanta principal de trabajo
+     */
+    public void showTipoProductoPrincipal() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Give the controller access to the main app.
+            TipoProductoPrincipalController controller = loader.getController();
+            
+            TipoProductoService tps = new TipoProductoService();
+            List<TipoProducto> tipoProductos = tps.ListarTipoProductos();
+            
+            controller.setTipoProductos(tipoProductos);
+            
+            // coloca la ventana de trabajo en la ventana principal (borderpane)
+            rootLayout.setCenter(personOverview);
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

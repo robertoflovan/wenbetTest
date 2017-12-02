@@ -8,11 +8,11 @@ package com.wenbet.wenbettest2.view;
 import com.wenbet.wenbettest2.MainApp;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.service.TrabajoService;
+import com.wenbet.wenbettest2.test.testData;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,9 +50,11 @@ public class TrabajoPrincipalController implements Initializable {
     @FXML
     private TableColumn<Trabajo, String> coloniaColumn;
     @FXML
-    private TableColumn<Trabajo, String> estadoColumn;
+    private TableColumn<Trabajo, LocalDate> anticipoColumn;
     @FXML
-    private TableColumn<Trabajo, Number> costoColumn;
+    private TableColumn<Trabajo, LocalDate> terminoColumn;
+    @FXML
+    private TableColumn<Trabajo, Number> costoTotalColumn;
     @FXML
     private TableColumn<Trabajo, Number> saldoColumn;
 
@@ -78,8 +80,9 @@ public class TrabajoPrincipalController implements Initializable {
         );
         clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
         coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().getDireccion().coloniaProperty());
-        estadoColumn.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
-        costoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+        anticipoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaAnticipoProperty());
+        terminoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaTerminoProperty());
+        costoTotalColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
         saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
     }
 
@@ -92,12 +95,20 @@ public class TrabajoPrincipalController implements Initializable {
         this.mainApp = mainApp;
 
         // Add observable list data to the table TODO
-        TrabajoService ts = new TrabajoService();
-        ObservableList<Trabajo> data = FXCollections.observableArrayList(ts.ListarTrabajos());
-        System.out.println("asdasdasd");
-        System.out.println(ts.ListarTrabajos().size());
-        System.out.println("baia baia ");
+//        TrabajoService ts = new TrabajoService();
+//        ObservableList<Trabajo> data = FXCollections.observableArrayList(ts.ListarTrabajos());
+//        System.out.println(ts.ListarTrabajos().size());
+//        
+//        trabajoTable.setItems(data);
+    }
+    
+    public void setTrabajos(List<Trabajo> trabajos){
+        ObservableList<Trabajo> data = FXCollections.observableArrayList(trabajos);
         trabajoTable.setItems(data);
     }
+
+    
+
+    
     
 }

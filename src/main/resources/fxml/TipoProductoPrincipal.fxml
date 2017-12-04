@@ -31,15 +31,15 @@
                   </HBox>
                   <HBox layoutY="13.0" spacing="10.0" AnchorPane.leftAnchor="10.0">
                      <children>
-                        <Button defaultButton="true" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Nuevo" />
-                        <Button layoutX="66.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Editar" />
-                        <Button layoutX="118.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Eliminar" />
+                        <Button defaultButton="true" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleNew" prefWidth="80.0" text="Nuevo" />
+                        <Button layoutX="66.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleEdit" prefWidth="80.0" text="Editar" />
+                        <Button layoutX="118.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleDelete" prefWidth="80.0" text="Eliminar" />
                      </children>
                   </HBox>
                </children></AnchorPane>
          </bottom>
          <center>
-            <TableView fx:id="tipoProductoTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="principalTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="nombreColumn" prefWidth="834.0" text="Nombre" />

@@ -38,4 +38,5 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+    
 }

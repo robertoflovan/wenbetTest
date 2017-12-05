@@ -6,10 +6,8 @@
 package com.wenbet.wenbettest2.util;
 
 import com.wenbet.wenbettest2.MainApp;
-import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.view.MyInitializableAgregar;
 import com.wenbet.wenbettest2.view.MyInitializablePrincipal;
-import com.wenbet.wenbettest2.view.TipoProductoAgregarController;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -30,14 +28,16 @@ public class VistaUtil {
      * Método para mostrar una nueva vista principal, la cual tendrá una tabla que mostrará datos que se indiquen
      * @param <Entity> Entidad de la vista que se mostrará
      * @param data datos que se mostrarán en la tabla
+     * @param nombreEntidad
      * @param mainApp mainApp
+     * @param clase
      */
-    public static <Entity extends Serializable> void showVistaPrincipal(List<Entity> data, String fxml, MainApp mainApp) {
+    public static <Entity extends Serializable> void showVistaPrincipal(List<Entity> data, String nombreEntidad, Class<Entity> clase, MainApp mainApp) {
         AnchorPane overview = null;
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/"+fxml+".fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/"+nombreEntidad+"Principal.fxml"));
             overview = (AnchorPane) loader.load();
 
             // Give the controller access to the main app.
@@ -45,6 +45,9 @@ public class VistaUtil {
             
             controller.setData(data);
             controller.setMainApp(mainApp);
+            controller.setNombreEntidad(nombreEntidad);
+            controller.setClass(clase);
+            
             mainApp.getRootLayout().setCenter(overview);
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,7 +60,7 @@ public class VistaUtil {
        try {
            // Load the fxml file and create a new stage for the popup dialog.
            FXMLLoader loader = new FXMLLoader();
-           loader.setLocation(MainApp.class.getResource("/fxml/"+fxml+".fxml"));
+           loader.setLocation(MainApp.class.getResource("/fxml/"+fxml+"Agregar.fxml"));
            AnchorPane page = (AnchorPane) loader.load();
 
            // Create the dialog Stage.

@@ -7,20 +7,24 @@ package com.wenbet.wenbettest2.view;
  */
 
 
+import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
-import com.wenbet.wenbettest2.service.TipoProductoService;
+import com.wenbet.wenbettest2.util.DialogUtil;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
 /**
  * FXML Controller class
@@ -29,14 +33,11 @@ import javafx.scene.control.TableView;
  */
 public class TipoProductoPrincipalController extends MyInitializablePrincipal<TipoProducto> {
 
-    //@FXML
-    //private TableView<TipoProducto> tipoProductoTable;
-    
     @FXML
     private TableColumn<TipoProducto, String> idColumn;
     @FXML
     private TableColumn<TipoProducto, String> nombreColumn;
-
+    
     public TipoProductoPrincipalController() {
     }
     
@@ -46,53 +47,65 @@ public class TipoProductoPrincipalController extends MyInitializablePrincipal<Ti
                 new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
         );
         nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-    }
-
-    @Override
-    public void setData(List<TipoProducto> data) {
-        ObservableList<TipoProducto> tipoProductos = FXCollections.observableArrayList(data);
-        principalTable.setItems(tipoProductos);
-    }
-
-    @Override
-    public void eliminarElementoDB(TipoProducto selected) {
-        mainApp.getTipoProductoService().EliminarTipoProducto(selected);
+        
+        
     }
     
-    /**
-    * Called when the user clicks the new button. Opens a dialog to edit
-    * details for a new person.
-    */
-   @FXML
-   private void handleNew() {
-       TipoProducto tempPerson = new TipoProducto();
-       boolean okClicked = mainApp.showTipoProductoEditDialog(tempPerson);
-       if (okClicked) {//Agregar un nuevo tipoProducto a la vista
-           principalTable.getItems().add(tempPerson);
-       }
-   }
+    @Override
+    public boolean eliminarElementoDB(TipoProducto selected) {
+        boolean success = true;
+        try {
+            mainApp.getTipoProductoService().EliminarTipoProducto(selected);
+        } catch (Exception e) {
+            success = false;
+            
+            if (e.getCause()!=null && e.getCause().toString().contains("Cannot delete or update a parent row: a foreign key constraint fails")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al eliminar");
+            alert.setContentText("No se puede eliminar, existen datos haciendo referencia, favor de eliminarlos primero");
+            alert.showAndWait();
+            } else {
+                DialogUtil.showExceptionDialog(e);
+            }
+            
+        }
+        return success;
+    }
 
-   /**
-    * Called when the user clicks the edit button. Opens a dialog to edit
-    * details for the selected person.
-    */
-   @FXML
-   private void handleEdit() {
-       TipoProducto selectedPerson = principalTable.getSelectionModel().getSelectedItem();
-       if (selectedPerson != null) {
-           boolean okClicked = mainApp.showTipoProductoEditDialog(selectedPerson);
-           if (okClicked) {//Se editó un tipoProducto
-               //showPersonDetails(selectedPerson);
-           }
+    @Override
+    protected boolean guardarElementoDB(TipoProducto selected) {
+        boolean success = true;
+        try {
+            mainApp.getTipoProductoService().GuardarTipoProducto(selected);
+        } catch (UnableToSaveException ex) {
+            success = false;
+            Logger.getLogger(TipoProductoPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return success;
+    }
 
-       } else {
-           // Nothing selected.
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-           alert.setTitle("Error");
-           alert.setHeaderText("Error al eliminar");
-           alert.setContentText("No se ha seleccionado nada para eliminar");
-           alert.showAndWait();
-       }
-   }
+    @Override
+    protected boolean actualizarElementoDB(TipoProducto selected) {
+        boolean success = true;
+        try {
+            mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
+        } catch (UnableToSaveException ex) {
+            success = false;
+            Logger.getLogger(TipoProductoPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return success;
+    }
+
+    @Override
+    protected boolean compararDatosFiltro(TipoProducto entidad, String textoFiltro) {
+        //Compare first name and last name of every person with filter text.
+        String lowerCaseFilter = textoFiltro.toLowerCase();
+        // Does not match.
+        
+        return entidad.getNombre().toLowerCase().contains(lowerCaseFilter); 
+    }
+   
+   
     
 }

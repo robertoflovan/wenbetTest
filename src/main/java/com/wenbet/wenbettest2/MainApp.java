@@ -110,47 +110,49 @@ public class MainApp extends Application {
     public void showTipoProductoPrincipal() {
         //TipoProductoService tps = new TipoProductoService();
         List<TipoProducto> tipoProductos = tipoProductoService.ListarTipoProductos();
-        VistaUtil.showVistaPrincipal(tipoProductos, "TipoProductoPrincipal", this);
+        VistaUtil.showVistaPrincipal(tipoProductos, "TipoProducto", TipoProducto.class, this);
     }
 
-    /**
-    * Opens a dialog to edit details for the specified tipoProducto. If the user
-    * clicks OK, the changes are saved into the provided tipoProducto object and true
-    * is returned.
-    * 
-    * @param tipoProducto the person object to be edited
-    * @return true if the user clicked OK, false otherwise.
-    */
-   public boolean showTipoProductoEditDialog(TipoProducto tipoProducto) {
-//       try {
-//           // Load the fxml file and create a new stage for the popup dialog.
-//           FXMLLoader loader = new FXMLLoader();
-//           loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoAgregar.fxml"));
-//           AnchorPane page = (AnchorPane) loader.load();
-//
-//           // Create the dialog Stage.
-//           Stage dialogStage = new Stage();
-//           dialogStage.setTitle("Edit tipo producto");
-//           dialogStage.initModality(Modality.WINDOW_MODAL);
-//           dialogStage.initOwner(primaryStage);
-//           Scene scene = new Scene(page);
-//           dialogStage.setScene(scene);
-//
-//           // Set the person into the controller.
-//           TipoProductoAgregarController controller = loader.getController();
-//           controller.setDialogStage(dialogStage);
-//           controller.setTipoProducto(tipoProducto);
-//
-//           // Show the dialog and wait until the user closes it
-//           dialogStage.showAndWait();
-//
-//           return controller.isOkClicked();
-//       } catch (IOException e) {
-//           e.printStackTrace();
-//           return false;
-//       }
-return false;
-   }
+//    /**
+//    * Opens a dialog to edit details for the specified tipoProducto. If the user
+//    * clicks OK, the changes are saved into the provided tipoProducto object and true
+//    * is returned.
+//    * 
+//    * @param tipoProducto the person object to be edited
+//    * @return true if the user clicked OK, false otherwise.
+//    */
+//    public boolean showTipoProductoEditDialog(TipoProducto tipoProducto) {
+//       
+//       return VistaUtil.showAgregarDialog(tipoProducto, "TipoProductoAgregar", this);
+//       
+////       try {
+////           // Load the fxml file and create a new stage for the popup dialog.
+////           FXMLLoader loader = new FXMLLoader();
+////           loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoAgregar.fxml"));
+////           AnchorPane page = (AnchorPane) loader.load();
+////
+////           // Create the dialog Stage.
+////           Stage dialogStage = new Stage();
+////           dialogStage.setTitle("Edit tipo producto");
+////           dialogStage.initModality(Modality.WINDOW_MODAL);
+////           dialogStage.initOwner(primaryStage);
+////           Scene scene = new Scene(page);
+////           dialogStage.setScene(scene);
+////
+////           // Set the person into the controller.
+////           TipoProductoAgregarController controller = loader.getController();
+////           controller.setDialogStage(dialogStage);
+////           controller.setTipoProducto(tipoProducto);
+////
+////           // Show the dialog and wait until the user closes it
+////           dialogStage.showAndWait();
+////
+////           return controller.isOkClicked();
+////       } catch (IOException e) {
+////           e.printStackTrace();
+////           return false;
+////       }
+//   }
     
     
     //Getters setters

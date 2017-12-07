@@ -48,6 +48,10 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
                     return true;
                 }
                 
+                int num = principalTable.getColumns().size();
+                
+                //ArrayList<String>
+                
                 return compararDatosFiltro(entidad, newValue);
 
 //                // Compare first name and last name of every person with filter text.

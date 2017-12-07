@@ -7,7 +7,9 @@ package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Cliente;
+import com.wenbet.wenbettest2.modelo.Direccion;
 import com.wenbet.wenbettest2.util.DialogUtil;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -69,6 +71,23 @@ public class ClientePrincipalController extends MyInitializablePrincipal<Cliente
         }
         return false; // Does not match.
     }
+    
+//    private String[] setColumnsData(){
+//       String[] data = new String[2];
+//       data[0] = "id";
+//       data[1] = "direccion/colonia";
+//        try {
+//            //getId
+//            //idProperty
+//            //getNombre
+//            //nombreProperty
+//            Cliente c = new Cliente();
+//            Direccion d = (Direccion) Cliente.class.getMethod("getDireccion").invoke(c);
+//        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+//            Logger.getLogger(ClientePrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//       return data;
+//   }
 
     @Override
     protected boolean eliminarElementoDB(Cliente selected) {

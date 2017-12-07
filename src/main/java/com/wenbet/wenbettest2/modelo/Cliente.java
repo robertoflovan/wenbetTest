@@ -85,15 +85,15 @@ public class Cliente implements Serializable{
         return apellido;
     }
 
-    public final void setCeuluar(String value) {
+    public final void setCelular(String value) {
         celular.set(value);
     }
 
-    public final String getCeuluar() {
+    public final String getCelular() {
         return celular.get();
     }
 
-    public final StringProperty ceuluarProperty() {
+    public final StringProperty celularProperty() {
         return celular;
     }
 

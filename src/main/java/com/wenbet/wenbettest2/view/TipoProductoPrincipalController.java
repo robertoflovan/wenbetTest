@@ -101,9 +101,13 @@ public class TipoProductoPrincipalController extends MyInitializablePrincipal<Ti
     protected boolean compararDatosFiltro(TipoProducto entidad, String textoFiltro) {
         //Compare first name and last name of every person with filter text.
         String lowerCaseFilter = textoFiltro.toLowerCase();
-        // Does not match.
         
-        return entidad.getNombre().toLowerCase().contains(lowerCaseFilter); 
+        if (entidad.getNombre().toLowerCase().contains(lowerCaseFilter)) {
+            return true; 
+        } else if (String.valueOf(entidad.getId()).contains(lowerCaseFilter)) {
+            return true;
+        }
+        return false;// Does not match.
     }
    
    

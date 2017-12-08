@@ -7,17 +7,13 @@ package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Cliente;
-import com.wenbet.wenbettest2.modelo.Direccion;
-import com.wenbet.wenbettest2.util.DialogUtil;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
@@ -39,6 +35,30 @@ public class ClientePrincipalController extends MyInitializablePrincipal<Cliente
     @FXML
     private TableColumn<Cliente, String> telefonoColumn;
     
+    @FXML
+    private Label idLabel;
+    @FXML
+    private Label nombreLabel;
+    @FXML
+    private Label apellidoLabel;
+    @FXML
+    private Label celularLabel;
+    @FXML
+    private Label telefonoLabel;
+    @FXML
+    private Label correoLabel;
+    @FXML
+    private TextArea comentariosTextArea;
+    @FXML
+    private Label ciudadLabel;
+    @FXML
+    private Label coloniaLabel;
+    @FXML
+    private Label calleLabel;
+    @FXML
+    private Label numeroLabel;
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         idColumn.setCellValueFactory(cellData ->
@@ -49,89 +69,80 @@ public class ClientePrincipalController extends MyInitializablePrincipal<Cliente
         coloniaColumn.setCellValueFactory(cellData -> cellData.getValue().getDireccion().coloniaProperty());
         celularColumn.setCellValueFactory(cellData -> cellData.getValue().celularProperty());
         telefonoColumn.setCellValueFactory(cellData -> cellData.getValue().telefonoProperty());
+        
+        // Clear client details.
+        showClienteDetails(null);
+
+        // Listen for selection changes and show the person details when changed.
+        principalTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showClienteDetails(newValue));
+        
     }    
 
-    @Override
-    protected boolean compararDatosFiltro(Cliente entidad, String textoFiltro) {
-        //Compare first name and last name of every person with filter text.
-        String lowerCaseFilter = textoFiltro.toLowerCase();
-        
-        if (String.valueOf(entidad.getId()).contains(textoFiltro)) {
-            return true;
-        } else if (entidad.getNombre().toLowerCase().contains(textoFiltro)) {
-            return true; 
-        } else if (entidad.getApellido().toLowerCase().contains(textoFiltro)) {
-            return true; 
-        } else if (entidad.getDireccion().getColonia().toLowerCase().contains(textoFiltro)) {
-            return true; 
-        } else if (entidad.getCelular().toLowerCase().contains(textoFiltro)) {
-            return true; 
-        } else if (entidad.getTelefono().toLowerCase().contains(textoFiltro)) {
-            return true;
-        }
-        return false; // Does not match.
+     @Override
+    protected String[] datosTabla(Cliente entidad) {
+        String[] datos = new String[6];
+        datos[0] = String.valueOf(entidad.getId());
+        datos[1] = entidad.getNombre();
+        datos[2] = entidad.getApellido();
+        datos[3] = entidad.getDireccion().getColonia();
+        datos[4] = entidad.getCelular();
+        datos[5] = entidad.getTelefono();
+        return datos;
     }
     
-//    private String[] setColumnsData(){
-//       String[] data = new String[2];
-//       data[0] = "id";
-//       data[1] = "direccion/colonia";
-//        try {
-//            //getId
-//            //idProperty
-//            //getNombre
-//            //nombreProperty
-//            Cliente c = new Cliente();
-//            Direccion d = (Direccion) Cliente.class.getMethod("getDireccion").invoke(c);
-//        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-//            Logger.getLogger(ClientePrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//       return data;
-//   }
-
     @Override
-    protected boolean eliminarElementoDB(Cliente selected) {
-        boolean success = true;
-        try {
+    protected void eliminarElementoDB(Cliente selected) throws Exception {
             mainApp.getClienteService().EliminarCliente(selected);
-        } catch (Exception e) {
-            success = false;
-            
-            if (e.getCause()!=null && e.getCause().toString().contains("Cannot delete or update a parent row: a foreign key constraint fails")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error al eliminar");
-            alert.setContentText("No se puede eliminar, existen datos haciendo referencia, favor de eliminarlos primero");
-            alert.showAndWait();
-            } else {
-                DialogUtil.showExceptionDialog(e);
-            }
-        }
-        return success;
     }
 
     @Override
-    protected boolean guardarElementoDB(Cliente selected) {
-        boolean success = true;
-        try {
+    protected void guardarElementoDB(Cliente selected) throws UnableToSaveException {
             mainApp.getClienteService().GuardarCliente(selected);
-        } catch (UnableToSaveException ex) {
-            success = false;
-            DialogUtil.showExceptionDialog(ex);
-        }
-        return success;
     }
 
     @Override
-    protected boolean actualizarElementoDB(Cliente selected) {
-        boolean success = true;
-        try {
+    protected void actualizarElementoDB(Cliente selected) throws UnableToSaveException {
             mainApp.getClienteService().ActualizarCliente(selected);
-        } catch (UnableToSaveException ex) {
-            success = false;
-            DialogUtil.showExceptionDialog(ex);
-        }
-        return success;
     }
+    
+    /**
+    * Fills all text fields to show details about the client.
+    * If the specified client is null, all text fields are cleared.
+    * 
+    * @param person the person or null
+    */
+   private void showClienteDetails(Cliente cliente) {
+       if (cliente != null) {
+           // Fill the labels with info from the client object.
+           idLabel.setText(String.valueOf(cliente.getId()));
+           nombreLabel.setText(cliente.getNombre());
+           apellidoLabel.setText(cliente.getApellido());
+           celularLabel.setText(cliente.getCelular());
+           telefonoLabel.setText(cliente.getCelular());
+           correoLabel.setText(cliente.getCorreo());
+           comentariosTextArea.setText(cliente.getComentarios());
+           ciudadLabel.setText(cliente.getDireccion().getCiudad());
+           coloniaLabel.setText(cliente.getDireccion().getColonia());
+           calleLabel.setText(cliente.getDireccion().getCalle());
+           numeroLabel.setText(cliente.getDireccion().getNumero());
+
+           // TODO: We need a way to convert the birthday into a String! 
+           // birthdayLabel.setText(...);
+       } else {
+           // Person is null, remove all the text.
+           idLabel.setText("");
+           nombreLabel.setText("");
+           apellidoLabel.setText("");
+           celularLabel.setText("");
+           telefonoLabel.setText("");
+           correoLabel.setText("");
+           comentariosTextArea.setText("");
+           ciudadLabel.setText("");
+           coloniaLabel.setText("");
+           calleLabel.setText("");
+           numeroLabel.setText("");
+       }
+   }
     
 }

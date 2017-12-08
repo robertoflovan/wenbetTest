@@ -9,10 +9,8 @@ import com.wenbet.wenbettest2.modelo.TipoProducto;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,58 +22,17 @@ public class TipoProductoAgregarController extends MyInitializableAgregar<TipoPr
     @FXML
     private TextField nombreField;
     
-    
-    private TipoProducto tipoProducto;
-    
-    
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
     
-    
-    
-//    /**
-//     * Sets the person to be edited in the dialog.
-//     * 
-//     * @param tipoProducto
-//     */
-//    public void setTipoProducto(TipoProducto tipoProducto) {
-//        
-//    }
-    
-    
-    
-    /**
-     * Called when the user clicks ok.
-     */
-    @FXML
-    private void handleOk() {
-        if (isInputValid()) {
-            tipoProducto.setNombre(nombreField.getText());
-
-            okClicked = true;
-            dialogStage.close();
-        }
-    }
-    
-    /**
-     * Called when the user clicks cancel.
-     */
-    @FXML
-    private void handleCancel() {
-        dialogStage.close();
-    }
-    
-    /**
-     * Validates the user input in the text fields.
-     * 
-     * @return true if the input is valid
-     */
-    private boolean isInputValid() {
+    @Override
+    protected boolean isInputValid() {
         String errorMessage = "";
 
         if (nombreField.getText() == null || nombreField.getText().length() == 0) {
@@ -96,9 +53,15 @@ public class TipoProductoAgregarController extends MyInitializableAgregar<TipoPr
     }
 
     @Override
-    public void setEntidad(TipoProducto entidad) {
-        this.tipoProducto = entidad;
-        nombreField.setText(tipoProducto.getNombre());
+    protected void fillData(TipoProducto entidad) {
+        nombreField.setText(entidad.getNombre());
     }
+
+    @Override
+    protected void actualizarEntidad(TipoProducto entidad) {
+        entidad.setNombre(nombreField.getText());
+    }
+
+    
     
 }

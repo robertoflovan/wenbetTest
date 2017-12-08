@@ -48,69 +48,33 @@ public class TipoProductoPrincipalController extends MyInitializablePrincipal<Ti
                 new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
         );
         nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        
-        
     }
     
     @Override
-    public boolean eliminarElementoDB(TipoProducto selected) {
-        boolean success = true;
-        try {
-            mainApp.getTipoProductoService().EliminarTipoProducto(selected);
-        } catch (Exception e) {
-            success = false;
-            
-            if (e.getCause()!=null && e.getCause().toString().contains("Cannot delete or update a parent row: a foreign key constraint fails")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error al eliminar");
-            alert.setContentText("No se puede eliminar, existen datos haciendo referencia, favor de eliminarlos primero");
-            alert.showAndWait();
-            } else {
-                DialogUtil.showExceptionDialog(e);
-            }
-            
-        }
-        return success;
+    protected String[] datosTabla(TipoProducto entidad) {
+        String[] datos = new String[2];
+        datos[0] = String.valueOf(entidad.getId());
+        datos[1] = entidad.getNombre();
+        return datos;
+    }
+    
+    @Override
+    public void eliminarElementoDB(TipoProducto selected) {
+        mainApp.getTipoProductoService().EliminarTipoProducto(selected);
     }
 
     @Override
-    protected boolean guardarElementoDB(TipoProducto selected) {
-        boolean success = true;
-        try {
-            mainApp.getTipoProductoService().GuardarTipoProducto(selected);
-        } catch (UnableToSaveException ex) {
-            success = false;
-            Logger.getLogger(TipoProductoPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return success;
+    protected void guardarElementoDB(TipoProducto selected) throws UnableToSaveException{
+        mainApp.getTipoProductoService().GuardarTipoProducto(selected);
     }
 
     @Override
-    protected boolean actualizarElementoDB(TipoProducto selected) {
-        boolean success = true;
-        try {
-            mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
-        } catch (UnableToSaveException ex) {
-            success = false;
-            Logger.getLogger(TipoProductoPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return success;
+    protected void actualizarElementoDB(TipoProducto selected) throws UnableToSaveException{
+        mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
     }
 
-    @Override
-    protected boolean compararDatosFiltro(TipoProducto entidad, String textoFiltro) {
-        //Compare first name and last name of every person with filter text.
-        String lowerCaseFilter = textoFiltro.toLowerCase();
-        
-        if (entidad.getNombre().toLowerCase().contains(lowerCaseFilter)) {
-            return true; 
-        } else if (String.valueOf(entidad.getId()).contains(lowerCaseFilter)) {
-            return true;
-        }
-        return false;// Does not match.
-    }
-   
+     
+  
    
     
 }

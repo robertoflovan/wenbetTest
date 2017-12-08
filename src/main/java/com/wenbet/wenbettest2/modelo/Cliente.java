@@ -31,6 +31,7 @@ public class Cliente implements Serializable{
     private final StringProperty apellido = new SimpleStringProperty();
     private final StringProperty celular = new SimpleStringProperty();
     private final StringProperty telefono = new SimpleStringProperty();
+    private final StringProperty correo = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
 
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
@@ -119,6 +120,18 @@ public class Cliente implements Serializable{
 
     public final StringProperty comentariosProperty() {
         return comentarios;
+    }
+    
+    public final void setCorreo(String value) {
+        correo.set(value);
+    }
+
+    public final String getCorreo() {
+        return correo.get();
+    }
+
+    public final StringProperty correoProperty() {
+        return correo;
     }
     
     //Direccion

@@ -6,11 +6,14 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
+import com.wenbet.wenbettest2.exception.UnableToSaveException;
+import com.wenbet.wenbettest2.util.DialogUtil;
 import com.wenbet.wenbettest2.util.VistaUtil;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,7 +31,8 @@ import javafx.scene.control.TextField;
  */
 public abstract class MyInitializablePrincipal<T extends Serializable> implements Initializable{
     
-    protected abstract boolean compararDatosFiltro(T entidad, String textoFiltro);
+    protected abstract String[] datosTabla(T entidad);
+   
     
     @FXML
     protected TextField filterField;
@@ -74,11 +78,32 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
         principalTable.setItems(sortedData);
     }
     
-    protected abstract boolean eliminarElementoDB(T selected);
+    private boolean compararDatosFiltro(T entidad, String textoFiltro){
+        //Compare first name and last name of every person with filter text.
+        String lowerCaseFilter = textoFiltro.toLowerCase();
+        
+        String[] datosTabla = datosTabla(entidad);
+        
+        for (String string : datosTabla) {
+            if (string != null && string.toLowerCase().contains(lowerCaseFilter)) {
+                return true;
+            }
+        }
+        
+        
+//        if (entidad.getNombre().toLowerCase().contains(lowerCaseFilter)) {
+//            return true; 
+//        } else if (String.valueOf(entidad.getId()).contains(lowerCaseFilter)) {
+//            return true;
+//        }
+        return false;// Does not match.
+    }
     
-    protected abstract boolean guardarElementoDB(T selected);
+    protected abstract void eliminarElementoDB(T selected) throws Exception;
     
-    protected abstract boolean actualizarElementoDB(T selected);
+    protected abstract void guardarElementoDB(T selected) throws UnableToSaveException;
+    
+    protected abstract void actualizarElementoDB(T selected) throws UnableToSaveException;
     
     protected ObservableList<T> masterData = FXCollections.observableArrayList();
     
@@ -121,10 +146,21 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
         }
        boolean okClicked = showAgregarDialog(temp);
        if (okClicked) {
-           if (guardarElementoDB(temp)) {
+           if (guardarElemento(temp)) {
                 masterData.add(temp);
            }
        }
+   }
+   
+   private boolean guardarElemento(T entidad){
+       boolean success = true;
+        try {
+            guardarElementoDB(entidad);
+        } catch (UnableToSaveException ex) {
+            success = false;
+            DialogUtil.showExceptionDialog(ex);
+        }
+        return success;
    }
    
    /**
@@ -137,7 +173,7 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
        if (selected != null) {
            boolean okClicked = showAgregarDialog(selected);
            if (okClicked) {
-               actualizarElementoDB(selected);
+               actualizarElemento(selected);
            }
 
        } else {
@@ -149,12 +185,24 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
            alert.showAndWait();
        }
    }
+   
+   private boolean actualizarElemento(T entidad){
+       boolean success = true;
+        try {
+            //mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
+            actualizarElementoDB(entidad);
+        } catch (UnableToSaveException ex) {
+            success = false;
+            DialogUtil.showExceptionDialog(ex);
+        }
+        return success;
+   }
     
     @FXML
     protected void handleDelete() {
        T selected = principalTable.getSelectionModel().getSelectedItem();
        if (selected != null) {
-            if (eliminarElementoDB(selected)) {
+            if (eliminarElemento(selected)) {
                masterData.remove(selected);
             }
        } else {
@@ -166,6 +214,28 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
            alert.showAndWait();
        }
        
+   }
+    
+   private boolean eliminarElemento(T entidad){
+       boolean success = true;
+        try {
+            //mainApp.getTipoProductoService().EliminarTipoProducto(selected);
+            eliminarElementoDB(entidad);
+        } catch (Exception e) {
+            success = false;
+            
+            if (e.getCause()!=null && e.getCause().toString().contains("Cannot delete or update a parent row: a foreign key constraint fails")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al eliminar");
+            alert.setContentText("No se puede eliminar, existen datos haciendo referencia, favor de eliminarlos primero");
+            alert.showAndWait();
+            } else {
+                DialogUtil.showExceptionDialog(e);
+            }
+            
+        }
+        return success;
    }
     
     

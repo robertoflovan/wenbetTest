@@ -50,8 +50,8 @@ public class MainApp extends Application {
         initRootLayout();
 
         //showTrabajoPrincipal();
-        showTipoProductoPrincipal();
-        //showClientePrincipal();
+        //showTipoProductoPrincipal();
+        showClientePrincipal();
     }
 
     /**

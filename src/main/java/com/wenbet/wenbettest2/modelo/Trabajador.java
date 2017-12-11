@@ -36,6 +36,7 @@ public class Trabajador implements Serializable{
     private final ObjectProperty<Direccion> direccion = new SimpleObjectProperty<>();
 
     public Trabajador() {
+        this.direccion.set(new Direccion());
     }
     
     public Trabajador(String nombre, String puesto, String comentarios, LocalDate fechaAlta, Direccion direccion) {

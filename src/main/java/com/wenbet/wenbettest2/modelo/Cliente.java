@@ -38,6 +38,7 @@ public class Cliente implements Serializable{
 
     
     public Cliente() {
+        this.direccion.set(new Direccion());
     }
 
     public Cliente(String nombre, String celular, String telefono, String comentarios, Direccion direccion) {

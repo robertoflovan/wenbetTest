@@ -5,12 +5,11 @@ import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.service.ClienteService;
 import com.wenbet.wenbettest2.service.TipoProductoService;
+import com.wenbet.wenbettest2.service.TrabajadorService;
 import com.wenbet.wenbettest2.service.TrabajoService;
 import com.wenbet.wenbettest2.test.TestDatosPrueba;
 import com.wenbet.wenbettest2.util.HibernateUtil;
 import com.wenbet.wenbettest2.util.VistaUtil;
-import com.wenbet.wenbettest2.view.TipoProductoAgregarController;
-import com.wenbet.wenbettest2.view.TipoProductoPrincipalController;
 import com.wenbet.wenbettest2.view.TrabajoPrincipalController;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +20,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -33,6 +31,7 @@ public class MainApp extends Application {
     
     private final TipoProductoService tipoProductoService = new TipoProductoService();
     private final ClienteService clienteService = new ClienteService();
+    private final TrabajadorService trabajadorService = new TrabajadorService();
 
     public MainApp() {
     }
@@ -148,6 +147,10 @@ public class MainApp extends Application {
 
     public ClienteService getClienteService() {
         return clienteService;
+    }
+
+    public TrabajadorService getTrabajadorService() {
+        return trabajadorService;
     }
     
     

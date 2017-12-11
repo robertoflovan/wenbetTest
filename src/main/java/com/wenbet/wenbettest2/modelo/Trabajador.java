@@ -29,6 +29,7 @@ public class Trabajador implements Serializable{
     
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
+    private final StringProperty apellido = new SimpleStringProperty();
     private final StringProperty puesto = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> fechaAlta = new SimpleObjectProperty<>();
@@ -69,6 +70,18 @@ public class Trabajador implements Serializable{
 
     public final StringProperty nombreProperty() {
         return nombre;
+    }
+    
+    public final void setApellido(String value) {
+        apellido.set(value);
+    }
+
+    public final String getApellido() {
+        return apellido.get();
+    }
+
+    public final StringProperty apellidoProperty() {
+        return apellido;
     }
 
     public final void setPuesto(String value) {

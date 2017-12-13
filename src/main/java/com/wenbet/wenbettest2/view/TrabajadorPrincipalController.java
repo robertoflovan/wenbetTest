@@ -6,7 +6,6 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
-import com.wenbet.wenbettest2.modelo.Cliente;
 import com.wenbet.wenbettest2.modelo.Trabajador;
 import com.wenbet.wenbettest2.util.DateUtil;
 import java.net.URL;
@@ -33,6 +32,8 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
     @FXML
     private TableColumn<Trabajador, String> puestoColumn;
     @FXML
+    private TableColumn<Trabajador, String> telefonoColumn;
+    @FXML
     private TableColumn<Trabajador, String> fechaAltaColumn;
     
     @FXML
@@ -43,6 +44,8 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
     private Label apellidoLabel;
     @FXML
     private Label puestoLabel;
+    @FXML
+    private Label telefonoLabel;
     @FXML
     private Label fechaAltaLabel;
     @FXML
@@ -65,6 +68,7 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
         nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
         puestoColumn.setCellValueFactory(cellData -> cellData.getValue().puestoProperty());
+        telefonoColumn.setCellValueFactory(cellData -> cellData.getValue().telefonoProperty());
         fechaAltaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaAltaProperty());
         
         // Clear client details.
@@ -78,13 +82,14 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
 
      @Override
     protected String[] datosTabla(Trabajador entidad) {
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         
         datos[0] = String.valueOf(entidad.getId());
         datos[1] = entidad.getNombre();
         datos[2] = entidad.getApellido();
         datos[3] = entidad.getPuesto();
-        datos[4] = DateUtil.format(entidad.getFechaAlta());
+        datos[4] = entidad.getTelefono();
+        datos[5] = DateUtil.format(entidad.getFechaAlta());
         return datos;
     }
     
@@ -116,6 +121,7 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
            nombreLabel.setText(trabajador.getNombre());
            apellidoLabel.setText(trabajador.getApellido());
            puestoLabel.setText(trabajador.getPuesto());
+           telefonoLabel.setText(trabajador.getTelefono());
            
            fechaAltaLabel.setText(DateUtil.format(trabajador.getFechaAlta()));
            

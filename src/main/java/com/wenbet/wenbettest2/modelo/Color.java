@@ -25,7 +25,6 @@ public class Color implements Serializable{
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();
     private final StringProperty marca = new SimpleStringProperty();
-    private final StringProperty perzonalizado = new SimpleStringProperty();
 
     public Color() {
     }
@@ -33,10 +32,6 @@ public class Color implements Serializable{
     public Color(String nombre, String marca){
         this.nombre.set(nombre);
         this.marca.set(marca);
-    }
-    
-    public Color(String perzonalizado){
-        this.perzonalizado.set(perzonalizado);
     }
 
     //Getters, setters and javafx properties
@@ -73,20 +68,5 @@ public class Color implements Serializable{
     public final StringProperty marcaProperty() {
         return marca;
     }
-
-    public final void setPerzonalizado(String value) {
-        perzonalizado.set(value);
-    }
-
-    public final String getPerzonalizado() {
-        return perzonalizado.get();
-    }
-
-    public final StringProperty perzonalizadoProperty() {
-        return perzonalizado;
-    }
-    
-    
-    
     
 }

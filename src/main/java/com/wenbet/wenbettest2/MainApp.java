@@ -2,8 +2,10 @@ package com.wenbet.wenbettest2;
 
 import com.wenbet.wenbettest2.modelo.Cliente;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
+import com.wenbet.wenbettest2.modelo.Trabajador;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.service.ClienteService;
+import com.wenbet.wenbettest2.service.ColorService;
 import com.wenbet.wenbettest2.service.TipoProductoService;
 import com.wenbet.wenbettest2.service.TrabajadorService;
 import com.wenbet.wenbettest2.service.TrabajoService;
@@ -32,6 +34,7 @@ public class MainApp extends Application {
     private final TipoProductoService tipoProductoService = new TipoProductoService();
     private final ClienteService clienteService = new ClienteService();
     private final TrabajadorService trabajadorService = new TrabajadorService();
+    private final ColorService colorService = new ColorService();
 
     public MainApp() {
     }
@@ -50,7 +53,8 @@ public class MainApp extends Application {
 
         //showTrabajoPrincipal();
         //showTipoProductoPrincipal();
-        showClientePrincipal();
+        //showClientePrincipal();
+        showTrabajadorPrincipal();
     }
 
     /**
@@ -117,12 +121,21 @@ public class MainApp extends Application {
     }
     
     /**
-     * Muestra la ventanta principal de trabajo
+     * Muestra la ventanta principal de cliente
      */
     public void showClientePrincipal() {
         //TipoProductoService tps = new TipoProductoService();
         List<Cliente> clientes = clienteService.ListarClientes();
         VistaUtil.showVistaPrincipal(clientes, "Cliente", Cliente.class, this);
+    }
+    
+    /**
+     * Muestra la ventanta principal de trabajador
+     */
+    public void showTrabajadorPrincipal() {
+        //TipoProductoService tps = new TipoProductoService();
+        List<Trabajador> trabajadores = trabajadorService.ListarTrabajadores();
+        VistaUtil.showVistaPrincipal(trabajadores, "Trabajador", Trabajador.class, this);
     }
 
     
@@ -151,6 +164,10 @@ public class MainApp extends Application {
 
     public TrabajadorService getTrabajadorService() {
         return trabajadorService;
+    }
+
+    public ColorService getColorService() {
+        return colorService;
     }
     
     

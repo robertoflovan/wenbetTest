@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -31,6 +31,7 @@ public class Trabajador implements Serializable{
     private final StringProperty nombre = new SimpleStringProperty();
     private final StringProperty apellido = new SimpleStringProperty();
     private final StringProperty puesto = new SimpleStringProperty();
+    private final StringProperty telefono = new SimpleStringProperty();
     private final StringProperty comentarios = new SimpleStringProperty();
     private final ObjectProperty<LocalDate> fechaAlta = new SimpleObjectProperty<>();
     
@@ -94,6 +95,18 @@ public class Trabajador implements Serializable{
 
     public final StringProperty puestoProperty() {
         return puesto;
+    }
+    
+    public final void setTelefono(String value) {
+        telefono.set(value);
+    }
+
+    public final String getTelefono() {
+        return telefono.get();
+    }
+
+    public final StringProperty telefonoProperty() {
+        return telefono;
     }
 
     public final void setComentarios(String value) {

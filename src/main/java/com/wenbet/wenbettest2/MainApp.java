@@ -1,9 +1,12 @@
 package com.wenbet.wenbettest2;
 
+import com.wenbet.wenbettest2.modelo.Actividad;
 import com.wenbet.wenbettest2.modelo.Cliente;
+import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajador;
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.service.ActividadService;
 import com.wenbet.wenbettest2.service.ClienteService;
 import com.wenbet.wenbettest2.service.ColorService;
 import com.wenbet.wenbettest2.service.TipoProductoService;
@@ -35,6 +38,7 @@ public class MainApp extends Application {
     private final ClienteService clienteService = new ClienteService();
     private final TrabajadorService trabajadorService = new TrabajadorService();
     private final ColorService colorService = new ColorService();
+    private final ActividadService actividadService = new ActividadService();
 
     public MainApp() {
     }
@@ -54,7 +58,9 @@ public class MainApp extends Application {
         //showTrabajoPrincipal();
         //showTipoProductoPrincipal();
         //showClientePrincipal();
-        showTrabajadorPrincipal();
+        //showTrabajadorPrincipal();
+        //showColorPrincipal();
+        showActividadPrincipal();
     }
 
     /**
@@ -137,6 +143,24 @@ public class MainApp extends Application {
         List<Trabajador> trabajadores = trabajadorService.ListarTrabajadores();
         VistaUtil.showVistaPrincipal(trabajadores, "Trabajador", Trabajador.class, this);
     }
+    
+    /**
+     * Muestra la ventanta principal de color
+     */
+    public void showColorPrincipal() {
+        //TipoProductoService tps = new TipoProductoService();
+        List<Color> colores = colorService.ListarColores();
+        VistaUtil.showVistaPrincipal(colores, "Color", Color.class, this);
+    }
+    
+    /**
+     * Muestra la ventanta principal de color
+     */
+    public void showActividadPrincipal() {
+        //TipoProductoService tps = new TipoProductoService();
+        List<Actividad> actividades = actividadService.ListarActividades();
+        VistaUtil.showVistaPrincipal(actividades, "Actividad", Actividad.class, this);
+    }
 
     
     
@@ -169,6 +193,12 @@ public class MainApp extends Application {
     public ColorService getColorService() {
         return colorService;
     }
+
+    public ActividadService getActividadService() {
+        return actividadService;
+    }
+    
+    
     
     
     

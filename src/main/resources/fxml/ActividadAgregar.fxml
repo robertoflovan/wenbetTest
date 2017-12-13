@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="450.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wenbet.wenbettest2.view.ColorAgregarController">
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="450.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wenbet.wenbettest2.view.ActividadAgregarController">
    <children>
       <BorderPane layoutX="139.0" layoutY="76.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="14.0" layoutY="10.0" styleClass="titulo" text="Nuevo color" AnchorPane.leftAnchor="10.0" />
+                  <Label layoutX="14.0" layoutY="10.0" styleClass="titulo" text="Nuevo tipo de actividad" AnchorPane.leftAnchor="10.0" />
                   <Separator layoutX="10.0" layoutY="39.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
@@ -26,7 +26,6 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <BorderPane.margin>
                   <Insets left="10.0" right="10.0" />
@@ -34,8 +33,6 @@
                <children>
                   <Label styleClass="etiqueta" text="Nombre" />
                   <TextField fx:id="nombreField" GridPane.columnIndex="1" />
-                  <Label styleClass="etiqueta" text="Marca" GridPane.rowIndex="1" />
-                  <TextField fx:id="marcaField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </center>

@@ -7,13 +7,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wenbet.wenbettest2.view.ColorPrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wenbet.wenbettest2.view.ActividadPrincipalController">
    <children>
       <BorderPane layoutX="366.0" layoutY="242.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="14.0" layoutY="17.0" prefHeight="50.0" prefWidth="900.0" styleClass="titulo" text="Todos los colores" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
+                  <Label layoutX="14.0" layoutY="17.0" prefHeight="50.0" prefWidth="900.0" styleClass="titulo" text="Todas las actividades" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="0.0" />
                </children></AnchorPane>
          </top>
          <bottom>
@@ -42,12 +42,8 @@
             <TableView fx:id="principalTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
                 <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="nombreColumn" prefWidth="400.0" text="Nombre" />
-                  <TableColumn fx:id="marcaColumn" prefWidth="400.0" text="Marca" />
+                <TableColumn fx:id="nombreColumn" prefWidth="834.0" text="Nombre" />
               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
             </TableView>
          </center>
       </BorderPane>

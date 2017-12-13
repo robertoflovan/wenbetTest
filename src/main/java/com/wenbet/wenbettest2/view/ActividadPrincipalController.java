@@ -8,7 +8,7 @@ package com.wenbet.wenbettest2.view;
 
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
-import com.wenbet.wenbettest2.modelo.TipoProducto;
+import com.wenbet.wenbettest2.modelo.Actividad;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,14 +20,14 @@ import javafx.scene.control.TableColumn;
  *
  * @author Roberto
  */
-public class TipoProductoPrincipalController extends MyInitializablePrincipal<TipoProducto> {
+public class ActividadPrincipalController extends MyInitializablePrincipal<Actividad> {
 
     @FXML
-    private TableColumn<TipoProducto, String> idColumn;
+    private TableColumn<Actividad, String> idColumn;
     @FXML
-    private TableColumn<TipoProducto, String> nombreColumn;
+    private TableColumn<Actividad, String> nombreColumn;
     
-    public TipoProductoPrincipalController() {
+    public ActividadPrincipalController() {
     }
     
     @Override
@@ -39,7 +39,7 @@ public class TipoProductoPrincipalController extends MyInitializablePrincipal<Ti
     }
     
     @Override
-    protected String[] datosTabla(TipoProducto entidad) {
+    protected String[] datosTabla(Actividad entidad) {
         String[] datos = new String[2];
         datos[0] = String.valueOf(entidad.getId());
         datos[1] = entidad.getNombre();
@@ -47,18 +47,18 @@ public class TipoProductoPrincipalController extends MyInitializablePrincipal<Ti
     }
     
     @Override
-    public void eliminarElementoDB(TipoProducto selected) {
-        mainApp.getTipoProductoService().EliminarTipoProducto(selected);
+    public void eliminarElementoDB(Actividad selected) {
+        mainApp.getActividadService().EliminarActividad(selected);
     }
 
     @Override
-    protected void guardarElementoDB(TipoProducto selected) throws UnableToSaveException{
-        mainApp.getTipoProductoService().GuardarTipoProducto(selected);
+    protected void guardarElementoDB(Actividad selected) throws UnableToSaveException{
+        mainApp.getActividadService().GuardarActividad(selected);
     }
 
     @Override
-    protected void actualizarElementoDB(TipoProducto selected) throws UnableToSaveException{
-        mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
+    protected void actualizarElementoDB(Actividad selected) throws UnableToSaveException{
+        mainApp.getActividadService().ActualizarActividad(selected);
     }
 
      

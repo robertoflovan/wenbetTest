@@ -5,6 +5,7 @@
  */
 package com.wenbet.wenbettest2.view;
 
+import com.wenbet.wenbettest2.MainApp;
 import java.io.Serializable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -39,6 +40,7 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
     
     protected Stage dialogStage;
     protected boolean okClicked = false;
+    protected MainApp mainApp;
     private T entidad;
     
     /**
@@ -87,6 +89,10 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
             okClicked = true;
             dialogStage.close();
         }
+    }
+
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
     }
     
 }

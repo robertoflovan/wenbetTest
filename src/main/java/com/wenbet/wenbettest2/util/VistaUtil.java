@@ -75,6 +75,7 @@ public class VistaUtil {
            MyInitializableAgregar controller = loader.getController();
            controller.setDialogStage(dialogStage);
            controller.setEntidad(entidad);
+           controller.setMainApp(mainApp);
 
            // Show the dialog and wait until the user closes it
            dialogStage.showAndWait();

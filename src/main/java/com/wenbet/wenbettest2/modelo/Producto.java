@@ -32,7 +32,7 @@ public class Producto implements Serializable{
     
     private final ObjectProperty<TipoProducto> tipoProducto = new SimpleObjectProperty<>();
 
-    private Producto() {
+    public Producto() {
     }
     
     public Producto(String nombre, TipoProducto tipoProducto) {

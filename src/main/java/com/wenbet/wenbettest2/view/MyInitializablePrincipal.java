@@ -31,6 +31,8 @@ import javafx.scene.control.TextField;
  */
 public abstract class MyInitializablePrincipal<T extends Serializable> implements Initializable{
     
+    
+    //Actualización para agregar en ventana
     protected abstract String[] datosTabla(T entidad);
    
     

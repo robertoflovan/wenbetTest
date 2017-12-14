@@ -3,12 +3,14 @@ package com.wenbet.wenbettest2;
 import com.wenbet.wenbettest2.modelo.Actividad;
 import com.wenbet.wenbettest2.modelo.Cliente;
 import com.wenbet.wenbettest2.modelo.Color;
+import com.wenbet.wenbettest2.modelo.Producto;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajador;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.service.ActividadService;
 import com.wenbet.wenbettest2.service.ClienteService;
 import com.wenbet.wenbettest2.service.ColorService;
+import com.wenbet.wenbettest2.service.ProductoService;
 import com.wenbet.wenbettest2.service.TipoProductoService;
 import com.wenbet.wenbettest2.service.TrabajadorService;
 import com.wenbet.wenbettest2.service.TrabajoService;
@@ -39,6 +41,7 @@ public class MainApp extends Application {
     private final TrabajadorService trabajadorService = new TrabajadorService();
     private final ColorService colorService = new ColorService();
     private final ActividadService actividadService = new ActividadService();
+    private final ProductoService productoService = new ProductoService();
 
     public MainApp() {
     }
@@ -60,7 +63,8 @@ public class MainApp extends Application {
         //showClientePrincipal();
         //showTrabajadorPrincipal();
         //showColorPrincipal();
-        showActividadPrincipal();
+        //showActividadPrincipal();
+        showProductoPrincipal();
     }
 
     /**
@@ -161,6 +165,15 @@ public class MainApp extends Application {
         List<Actividad> actividades = actividadService.ListarActividades();
         VistaUtil.showVistaPrincipal(actividades, "Actividad", Actividad.class, this);
     }
+    
+    /**
+     * Muestra la ventanta principal de producto
+     */
+    public void showProductoPrincipal() {
+        //TipoProductoService tps = new TipoProductoService();
+        List<Producto> productos = productoService.ListarProductos();
+        VistaUtil.showVistaPrincipal(productos, "Producto", Producto.class, this);
+    }
 
     
     
@@ -197,6 +210,12 @@ public class MainApp extends Application {
     public ActividadService getActividadService() {
         return actividadService;
     }
+
+    public ProductoService getProductoService() {
+        return productoService;
+    }
+    
+    
     
     
     

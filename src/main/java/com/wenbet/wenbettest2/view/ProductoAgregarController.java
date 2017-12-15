@@ -6,7 +6,6 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
-import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.Producto;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.service.TipoProductoService;

@@ -20,7 +20,7 @@ import javax.persistence.Id;
  * @author Roberto
  */
 @Entity
-public class TipoProducto implements Serializable{
+public class TipoProducto implements IModel{
     
     private long id;
     
@@ -37,6 +37,7 @@ public class TipoProducto implements Serializable{
     //Getters, setters and javafx properties
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Override
     public long getId() {
         return id;
     }

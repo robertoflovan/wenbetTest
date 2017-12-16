@@ -87,4 +87,28 @@ public class VistaUtil {
        }
    }
     
+    public static <Entity extends Serializable> void showVistaSeleccion(List<Entity> data, String nombreEntidad, Class<Entity> clase, MainApp mainApp) {
+        AnchorPane overview = null;
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("/fxml/"+nombreEntidad+"Principal.fxml"));
+            overview = (AnchorPane) loader.load();
+
+            // Give the controller access to the main app.
+            MyInitializablePrincipal controller = loader.getController();
+            
+            controller.setData(data);
+            controller.setMainApp(mainApp);
+            controller.setNombreEntidad(nombreEntidad);
+            controller.setClass(clase);
+            
+            mainApp.getRootLayout().setCenter(overview);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //return overview;
+    }
+    
+    
 }//Fin de la clase

@@ -8,7 +8,6 @@ package com.wenbet.wenbettest2.view;
 import com.wenbet.wenbettest2.MainApp;
 import java.io.Serializable;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
 /**
@@ -16,20 +15,7 @@ import javafx.stage.Stage;
  * @author Roberto
  * @param <T>
  */
-public abstract class MyInitializableAgregar<T extends Serializable> implements Initializable{
-    
-    /**
-     * Llena todos los componentes de la vista con la entidad recibida
-     * @param entidad que se utilizará para llenar los componentes
-     */
-    protected abstract void fillData(T entidad);
-    
-    /**
-     * Validates the user input in the text fields.
-     * 
-     * @return true if the input is valid
-     */
-    protected abstract boolean isInputValid();
+public abstract class MyInitializableSeleccionar<T extends Serializable> extends MyInitializablePrincipal<T>{
     
     /**
      * Actualiza la entidad con todos los datos obtenidos del usuario mediante la vista
@@ -40,8 +26,7 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
     
     protected Stage dialogStage;
     protected boolean okClicked = false;
-    protected MainApp mainApp;
-    private T entidad;
+    protected T entidad;
     
     /**
      * Returns true if the user clicked OK, false otherwise.
@@ -61,13 +46,16 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
         this.dialogStage = dialogStage;
     }
     
-    /**
-     * Sets the entity on the view an fill the components with the entity data
-     * @param entidad 
-     */
-    public void setEntidad(T entidad) {
-        this.entidad = entidad;
-        fillData(entidad);
+//    /**
+//     * Sets the entity on the view an fill the components with the entity data
+//     * @param entidad 
+//     */
+//    public void setEntidad(T entidad) {
+//        this.entidad = entidad;
+//    }
+    
+    public T getEntidad(){
+        return this.entidad;
     }
     
     /**
@@ -83,16 +71,13 @@ public abstract class MyInitializableAgregar<T extends Serializable> implements 
      */
     @FXML
     private void handleOk() {
-        if (isInputValid()) {
+
             actualizarEntidad(this.entidad);
 
             okClicked = true;
             dialogStage.close();
-        }
+        
     }
 
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-    }
     
 }

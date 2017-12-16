@@ -8,6 +8,7 @@ package com.wenbet.wenbettest2.view;
 
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
+import com.wenbet.wenbettest2.modelo.IModel;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,12 +21,12 @@ import javafx.scene.control.TableColumn;
  *
  * @author Roberto
  */
-public class SeleccionController extends MyInitializablePrincipal<TipoProducto> {
+public class SeleccionController extends MyInitializableSeleccionar<IModel> {
 
     @FXML
-    private TableColumn<TipoProducto, String> idColumn;
+    private TableColumn<IModel, String> idColumn;
     @FXML
-    private TableColumn<TipoProducto, String> nombreColumn;
+    private TableColumn<IModel, String> nombreColumn;
     
     
     
@@ -37,30 +38,44 @@ public class SeleccionController extends MyInitializablePrincipal<TipoProducto> 
         idColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(String.valueOf(cellData.getValue().getId()))
         );
-        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        nombreColumn.setCellValueFactory(cellData -> 
+                new SimpleStringProperty(String.valueOf(cellData.getValue().toString()))
+        );
     }
     
     @Override
-    protected String[] datosTabla(TipoProducto entidad) {
+    protected String[] datosTabla(IModel entidad) {
         String[] datos = new String[2];
         datos[0] = String.valueOf(entidad.getId());
-        datos[1] = entidad.getNombre();
+        datos[1] = entidad.toString();
         return datos;
     }
     
     @Override
-    public void eliminarElementoDB(TipoProducto selected) {
-        mainApp.getTipoProductoService().EliminarTipoProducto(selected);
+    public void eliminarElementoDB(IModel selected) {
+        if (selected instanceof TipoProducto) {
+            mainApp.getTipoProductoService().EliminarTipoProducto((TipoProducto) selected);
+        }
     }
 
     @Override
-    protected void guardarElementoDB(TipoProducto selected) throws UnableToSaveException{
-        mainApp.getTipoProductoService().GuardarTipoProducto(selected);
+    protected void guardarElementoDB(IModel selected) throws UnableToSaveException{
+        if (selected instanceof TipoProducto) {
+            mainApp.getTipoProductoService().GuardarTipoProducto((TipoProducto) selected);
+        }
+        
     }
 
     @Override
-    protected void actualizarElementoDB(TipoProducto selected) throws UnableToSaveException{
-        mainApp.getTipoProductoService().ActualizarTipoProducto(selected);
+    protected void actualizarElementoDB(IModel selected) throws UnableToSaveException{
+        if (selected instanceof TipoProducto) {
+            mainApp.getTipoProductoService().ActualizarTipoProducto((TipoProducto) selected);
+        }
+    }
+
+    @Override
+    protected void actualizarEntidad(IModel entidad) {
+        this.entidad = principalTable.getSelectionModel().getSelectedItem();
     }
 
      

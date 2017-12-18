@@ -29,6 +29,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 
 
 public class MainApp extends Application {
@@ -44,6 +45,7 @@ public class MainApp extends Application {
     private final ProductoService productoService = new ProductoService();
 
     public MainApp() {
+        SQLServerDriver a = new SQLServerDriver();
     }
     
     

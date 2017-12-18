@@ -37,7 +37,7 @@
                   <HBox spacing="10.0" GridPane.rowIndex="1">
                      <children>
                         <Label prefHeight="50.0" prefWidth="125.0" styleClass="etiqueta" text="Tipo de producto" />
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="52.0" text=". . .">
+                        <Button mnemonicParsing="false" onAction="#handleSeleccionarProducto" prefHeight="37.0" prefWidth="52.0" text=". . .">
                            <HBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </HBox.margin>

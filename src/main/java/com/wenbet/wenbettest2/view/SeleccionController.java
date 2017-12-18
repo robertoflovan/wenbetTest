@@ -73,10 +73,10 @@ public class SeleccionController extends MyInitializableSeleccionar<IModel> {
         }
     }
 
-    @Override
-    protected void actualizarEntidad(IModel entidad) {
-        this.entidad = principalTable.getSelectionModel().getSelectedItem();
-    }
+//    @Override
+//    protected void actualizarEntidad(IModel entidad) {
+//        this.entidad = principalTable.getSelectionModel().getSelectedItem();
+//    }
 
      
   

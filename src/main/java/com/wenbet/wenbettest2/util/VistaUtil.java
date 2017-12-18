@@ -6,8 +6,10 @@
 package com.wenbet.wenbettest2.util;
 
 import com.wenbet.wenbettest2.MainApp;
+import com.wenbet.wenbettest2.modelo.IModel;
 import com.wenbet.wenbettest2.view.MyInitializableAgregar;
 import com.wenbet.wenbettest2.view.MyInitializablePrincipal;
+import com.wenbet.wenbettest2.view.MyInitializableSeleccionar;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -87,7 +89,7 @@ public class VistaUtil {
        }
    }
     
-    public static <Entity extends Serializable> void showVistaSeleccion(List<Entity> data, String nombreEntidad, Class<Entity> clase, MainApp mainApp) {
+    public static <Entity extends Serializable> IModel showVistaSeleccion(List<Entity> data, String nombreEntidad, Class clase, MainApp mainApp) {
         AnchorPane overview = null;
         try {
             // Load person overview.
@@ -96,18 +98,34 @@ public class VistaUtil {
             overview = (AnchorPane) loader.load();
 
             // Give the controller access to the main app.
-            MyInitializablePrincipal controller = loader.getController();
+            MyInitializableSeleccionar controller = loader.getController();
             
             controller.setData(data);
             controller.setMainApp(mainApp);
             controller.setNombreEntidad(nombreEntidad);
             controller.setClass(clase);
             
-            mainApp.getRootLayout().setCenter(overview);
+            
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Seleccionar");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(mainApp.getPrimaryStage());
+            Scene scene = new Scene(overview);
+            dialogStage.setScene(scene);
+           
+            controller.setDialogStage(dialogStage);
+            //controller.setEntidad(entidad);
+            
+            // Show the dialog and wait until the user closes it
+           dialogStage.showAndWait();
+           
+           return controller.getEntidad();
+           
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //return overview;
+        return null;
     }
     
     

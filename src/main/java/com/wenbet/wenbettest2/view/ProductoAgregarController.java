@@ -9,6 +9,7 @@ import com.wenbet.wenbettest2.MainApp;
 import com.wenbet.wenbettest2.modelo.Producto;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.service.TipoProductoService;
+import com.wenbet.wenbettest2.util.VistaUtil;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -115,6 +116,11 @@ public class ProductoAgregarController extends MyInitializableAgregar<Producto> 
         } catch (IOException e) {
             e.printStackTrace();
         }
+   }
+   
+   @FXML
+   public void handleSeleccionarProducto(){
+       VistaUtil.showVistaSeleccion(mainApp.getProductoService().ListarProductos(), "TipoProducto", TipoProducto.class, mainApp);
    }
     
 }

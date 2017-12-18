@@ -6,6 +6,7 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
+import com.wenbet.wenbettest2.modelo.IModel;
 import java.io.Serializable;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -15,13 +16,13 @@ import javafx.stage.Stage;
  * @author Roberto
  * @param <T>
  */
-public abstract class MyInitializableSeleccionar<T extends Serializable> extends MyInitializablePrincipal<T>{
+public abstract class MyInitializableSeleccionar<T extends IModel> extends MyInitializablePrincipal<T>{
     
-    /**
-     * Actualiza la entidad con todos los datos obtenidos del usuario mediante la vista
-     * @param entidad que se actualizará
-     */
-    protected abstract void actualizarEntidad(T entidad);
+//    /**
+//     * Actualiza la entidad con todos los datos obtenidos del usuario mediante la vista
+//     * @param entidad que se actualizará
+//     */
+    //protected abstract void actualizarEntidad(T entidad);
     
     
     protected Stage dialogStage;
@@ -36,6 +37,7 @@ public abstract class MyInitializableSeleccionar<T extends Serializable> extends
     public boolean isOkClicked() {
         return okClicked;
     }
+    
     
     /**
      * Sets the stage of this dialog.
@@ -72,8 +74,8 @@ public abstract class MyInitializableSeleccionar<T extends Serializable> extends
     @FXML
     private void handleOk() {
 
-            actualizarEntidad(this.entidad);
-
+            //actualizarEntidad(this.entidad);
+            this.entidad = principalTable.getSelectionModel().getSelectedItem();
             okClicked = true;
             dialogStage.close();
         

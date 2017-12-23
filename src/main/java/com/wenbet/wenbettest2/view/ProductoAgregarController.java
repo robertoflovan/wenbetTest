@@ -6,6 +6,7 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
+import com.wenbet.wenbettest2.modelo.IModel;
 import com.wenbet.wenbettest2.modelo.Producto;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.service.TipoProductoService;
@@ -74,8 +75,13 @@ public class ProductoAgregarController extends MyInitializableAgregar<Producto> 
     @Override
     protected void fillData(Producto entidad) {
         nombreField.setText(entidad.getNombre());
-        tipoProductoLabel.setText(entidad.getTipoProducto().getNombre());
-        this.tipoProducto = entidad.getTipoProducto();
+        if (entidad.getTipoProducto()!=null) {
+            tipoProductoLabel.setText(entidad.getTipoProducto().getNombre());
+            this.tipoProducto = entidad.getTipoProducto();
+        } else {
+            tipoProductoLabel.setText("");
+            this.tipoProducto = null;
+        }
     }
 
     @Override
@@ -85,42 +91,46 @@ public class ProductoAgregarController extends MyInitializableAgregar<Producto> 
     }
 
 
-   @FXML
-   private void handleAddTipoProducto() {
-       AnchorPane overview = null;
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
-            overview = (AnchorPane) loader.load();
-
-            // Give the controller access to the main app.
-            MyInitializablePrincipal controller = loader.getController();
-            
-            TipoProductoService tipoProductoService = new TipoProductoService();
-            
-            
-            controller.setData(tipoProductoService.ListarTipoProductos());
-            controller.setNombreEntidad("TipoProducto");
-            controller.setClass(TipoProducto.class);
-            
-            
-            // Create the dialog Stage.
-           Stage dialogStage = new Stage();
-           dialogStage.setTitle("Editar");
-           dialogStage.initModality(Modality.WINDOW_MODAL);
-           dialogStage.initOwner(mainApp.getPrimaryStage());
-           Scene scene = new Scene(overview);
-           dialogStage.setScene(scene);
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-   }
+//   @FXML
+//   private void handleAddTipoProducto() {
+//       AnchorPane overview = null;
+//        try {
+//            // Load person overview.
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(MainApp.class.getResource("/fxml/TipoProductoPrincipal.fxml"));
+//            overview = (AnchorPane) loader.load();
+//
+//            // Give the controller access to the main app.
+//            MyInitializablePrincipal controller = loader.getController();
+//            
+//            TipoProductoService tipoProductoService = new TipoProductoService();
+//            
+//            
+//            controller.setData(tipoProductoService.ListarTipoProductos());
+//            controller.setNombreEntidad("TipoProducto");
+//            controller.setClass(TipoProducto.class);
+//            
+//            
+//            // Create the dialog Stage.
+//           Stage dialogStage = new Stage();
+//           dialogStage.setTitle("Editar");
+//           dialogStage.initModality(Modality.WINDOW_MODAL);
+//           dialogStage.initOwner(mainApp.getPrimaryStage());
+//           Scene scene = new Scene(overview);
+//           dialogStage.setScene(scene);
+//            
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//   }
    
    @FXML
-   public void handleSeleccionarProducto(){
-       VistaUtil.showVistaSeleccion(mainApp.getProductoService().ListarProductos(), "TipoProducto", TipoProducto.class, mainApp);
+   private void handleSeleccionarProducto(){
+       IModel tp = VistaUtil.showVistaSeleccion(mainApp.getTipoProductoService().ListarTipoProductos(), "TipoProducto", TipoProducto.class, mainApp);
+       if (tp != null) {
+           this.tipoProducto = (TipoProducto) tp;
+           tipoProductoLabel.setText(this.tipoProducto.getNombre());
+       }
    }
     
 }

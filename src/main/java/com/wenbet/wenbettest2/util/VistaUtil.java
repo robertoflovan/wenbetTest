@@ -89,12 +89,12 @@ public class VistaUtil {
        }
    }
     
-    public static <Entity extends Serializable> IModel showVistaSeleccion(List<Entity> data, String nombreEntidad, Class clase, MainApp mainApp) {
+    public static <Entity extends Serializable> IModel showVistaSeleccion(List<Entity> data, String nombreEntidad, Class<Entity> clase, MainApp mainApp) {
         AnchorPane overview = null;
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/"+nombreEntidad+"Principal.fxml"));
+            loader.setLocation(MainApp.class.getResource("/fxml/Seleccion.fxml"));
             overview = (AnchorPane) loader.load();
 
             // Give the controller access to the main app.

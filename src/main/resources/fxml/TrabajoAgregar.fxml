@@ -76,11 +76,15 @@
                               </AnchorPane>
                            </bottom>
                            <center>
-                              <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                              <TableView fx:id="productosTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
+                                  <TableColumn fx:id="productoColumn" prefWidth="75.0" text="Producto" />
+                                  <TableColumn fx:id="cantidadColumn" prefWidth="75.0" text="Cantidad" />
+                                    <TableColumn fx:id="precioColumn" prefWidth="75.0" text="Precio" />
                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </center>
                         </BorderPane>
@@ -107,20 +111,20 @@
                         <RowConstraints maxHeight="36.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="1 - Antonio - Valle Oriente" GridPane.columnIndex="1">
+                        <Label fx:id="clienteLabel" text="1 - Antonio - Valle Oriente" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Label>
                         <Label text="Fecha anticipo" GridPane.rowIndex="3" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Fecha anticipo" GridPane.rowIndex="4" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Fecha anticipo" GridPane.rowIndex="5" />
-                        <Label text="Fecha anticipo" GridPane.rowIndex="6" />
-                        <Label text="1- Cafe chocolate (Berel)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="fechaAnticipoDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Fecha inicio" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="fechaInicioDate" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="fechaTerminoDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <DatePicker fx:id="fechaInstalacionDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Fecha termino" GridPane.rowIndex="5" />
+                        <Label text="Fecha instalación" GridPane.rowIndex="6" />
+                        <Label fx:id="colorLabel" text="1- Cafe chocolate (Berel)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <HBox spacing="10.0">
                            <children>
                               <Label prefHeight="38.0" prefWidth="37.0" text="Cliente" />
@@ -132,11 +136,11 @@
                            </children>
                         </HBox>
                         <Label text="Comentarios" GridPane.rowIndex="7" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextArea fx:id="comentariosTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label text="Termino de pago" GridPane.rowIndex="8" />
-                        <ComboBox prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="terminoPagoCombo" prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Tiempo estimado de termino" GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="tiempoEstimadoCombo" prefHeight="25.0" prefWidth="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <HBox spacing="10.0" GridPane.rowIndex="1">
                            <children>
                               <Label prefHeight="38.0" prefWidth="37.0" text="Color" />

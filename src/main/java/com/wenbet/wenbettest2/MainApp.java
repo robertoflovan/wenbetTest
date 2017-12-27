@@ -100,28 +100,8 @@ public class MainApp extends Application {
      * Muestra la ventanta principal de trabajo
      */
     public void showTrabajoPrincipal() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/fxml/TrabajoPrincipal.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
-
-            // Give the controller access to the main app.
-            TrabajoPrincipalController controller = loader.getController();
-            controller.setMainApp(this);
-            
-            TrabajoService ts = new TrabajoService();
-            List<Trabajo> trabajos = ts.ListarTrabajos();
-            
-            controller.setTrabajos(trabajos);
-            
-            // coloca la ventana de trabajo en la ventana principal (borderpane)
-            rootLayout.setCenter(personOverview);
-            
-            
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<Trabajo> trabajos = trabajoService.ListarTrabajos();
+        VistaUtil.showVistaPrincipal(trabajos, "Trabajo", Trabajo.class, this);
     }
     
     /**

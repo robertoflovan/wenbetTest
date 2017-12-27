@@ -8,6 +8,7 @@ package com.wenbet.wenbettest2.view;
 import com.wenbet.wenbettest2.MainApp;
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.modelo.TrabajoProducto;
 import com.wenbet.wenbettest2.service.TrabajoService;
 import com.wenbet.wenbettest2.test.testData;
 import com.wenbet.wenbettest2.util.DateUtil;
@@ -15,6 +16,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,6 +63,15 @@ public class TrabajoPrincipalController2 extends MyInitializablePrincipal<Trabaj
     @FXML
     private TableColumn<Trabajo, Number> saldoColumn;
 
+    @FXML
+    protected TableView<TrabajoProducto> productosVendidosTable;
+    @FXML
+    private TableColumn<TrabajoProducto, String> productoColumn;
+    @FXML
+    private TableColumn<TrabajoProducto, Number> cantidadColumn;
+    @FXML
+    private TableColumn<TrabajoProducto, Number> precioColumn;
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -83,6 +95,17 @@ public class TrabajoPrincipalController2 extends MyInitializablePrincipal<Trabaj
         terminoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaTerminoProperty());
         costoTotalColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
         saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
+        
+        //Inicializar los datos de la tabla de productos del trabajo
+        productoColumn.setCellValueFactory(cellData -> cellData.getValue().getProducto().nombreProperty());
+        cantidadColumn.setCellValueFactory(cellData -> cellData.getValue().cantidadProperty());
+        precioColumn.setCellValueFactory(cellData -> cellData.getValue().precioProperty());
+        
+        // Listen for selection changes and show the job details when changed.
+        principalTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showTrabajoDetails(newValue));
+        
+        
     }
 
     @Override
@@ -100,20 +123,53 @@ public class TrabajoPrincipalController2 extends MyInitializablePrincipal<Trabaj
 
     @Override
     protected void eliminarElementoDB(Trabajo selected) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        mainApp.getTrabajoService().EliminarTrabajo(selected);
     }
 
     @Override
     protected void guardarElementoDB(Trabajo selected) throws UnableToSaveException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        mainApp.getTrabajoService().GuardarTrabajo(selected);
     }
 
     @Override
     protected void actualizarElementoDB(Trabajo selected) throws UnableToSaveException {
-        
+        mainApp.getTrabajoService().ActualizarTrabajo(selected);
     }
 
-    
+    /**
+    * Fills all text fields to show details about the client.
+    * If the specified client is null, all text fields are cleared.
+    * 
+    * @param person the person or null
+    */
+   private void showTrabajoDetails(Trabajo trabajo) {
+       if (trabajo != null) {
+           // Fill the labels with info from the client object.
+           idLabel.setText(String.valueOf(trabajo.getId()));
+           clienteLabel.setText(trabajo.getCliente().getNombre());
+           fechaAnticipoLabel.setText(DateUtil.format(trabajo.getFechaAnticipo()));
+           fechaInicioLabel.setText(DateUtil.format(trabajo.getFechaInicio()));
+           fechaTerminoLabel.setText(DateUtil.format(trabajo.getFechaTermino()));
+           fechaInstalacionLabel.setText(DateUtil.format(trabajo.getFechaInstalacion()));
+           
+            ObservableList<TrabajoProducto> observableList = FXCollections.observableArrayList(trabajo.getProductosDelTrabajo());
+            ListProperty lp  = new SimpleListProperty<>(observableList);
+            productosVendidosTable.setItems(lp);
+           
+       } else {
+           // Fill the labels with info from the client object.
+           idLabel.setText("");
+           clienteLabel.setText("");
+           fechaAnticipoLabel.setText("");
+           fechaInicioLabel.setText("");
+           fechaTerminoLabel.setText("");
+           fechaInstalacionLabel.setText("");
+           
+            ObservableList<TrabajoProducto> observableList = FXCollections.observableArrayList();
+            ListProperty lp  = new SimpleListProperty<>(observableList);
+            productosVendidosTable.setItems(lp);
+       }
+   }
     
     
    

@@ -76,6 +76,14 @@ public class Trabajo implements Serializable{
     }
     
 
+    public double calcularCostoTotal(){
+        double res = 0;
+        for (TrabajoProducto trabajoProducto : productosDelTrabajo) {
+            res += trabajoProducto.getPrecio() * trabajoProducto.getCantidad();
+        }
+        return res;
+    }
+    
     //Setters, getters and javafx properties
     
     //Id

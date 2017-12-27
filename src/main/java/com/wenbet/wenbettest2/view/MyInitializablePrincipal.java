@@ -33,6 +33,11 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
     
     
     //Actualización para agregar en ventana
+    /**
+     * Meotod utilizado para el filtro de la tabla, se debe devolver un arreglo de string con todos los datos de las columnas de la tabla en orden
+     * @param entidad la entidad relacionada a la tabla principal
+     * @return arreglo de string que contiene los datos de las celdas de la tabla principal
+     */
     protected abstract String[] datosTabla(T entidad);
    
     

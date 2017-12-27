@@ -6,6 +6,7 @@
 package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.MainApp;
+import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.service.TrabajoService;
 import com.wenbet.wenbettest2.test.testData;
@@ -28,7 +29,7 @@ import javafx.scene.control.TableView;
  *
  * @author Roberto
  */
-public class TrabajoPrincipalController implements Initializable {
+public class TrabajoPrincipalController2 extends MyInitializablePrincipal<Trabajo> {
 
     @FXML
     private Label idLabel;
@@ -43,8 +44,6 @@ public class TrabajoPrincipalController implements Initializable {
     @FXML
     private Label fechaInstalacionLabel;
     
-    @FXML
-    private TableView<Trabajo> trabajoTable;
     
     @FXML
     private TableColumn<Trabajo, String> idColumn;
@@ -61,14 +60,11 @@ public class TrabajoPrincipalController implements Initializable {
     @FXML
     private TableColumn<Trabajo, Number> saldoColumn;
 
-    // Reference to the main application.
-    private MainApp mainApp;
-    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public TrabajoPrincipalController() {
+    public TrabajoPrincipalController2() {
     }
     
     /**
@@ -89,53 +85,38 @@ public class TrabajoPrincipalController implements Initializable {
         saldoColumn.setCellValueFactory(cellData -> cellData.getValue().costoTotalProperty());
     }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     * 
-     * @param mainApp
-     */
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-
-        // Add observable list data to the table TODO
-//        TrabajoService ts = new TrabajoService();
-//        ObservableList<Trabajo> data = FXCollections.observableArrayList(ts.ListarTrabajos());
-//        System.out.println(ts.ListarTrabajos().size());
-//        
-//        trabajoTable.setItems(data);
-    }
-    
-    public void setTrabajos(List<Trabajo> trabajos){
-        ObservableList<Trabajo> data = FXCollections.observableArrayList(trabajos);
-        trabajoTable.setItems(data);
+    @Override
+    protected String[] datosTabla(Trabajo trabajo) {
+        String[] datos = new String[7];
+        datos[0] = String.valueOf(trabajo.getId());
+        datos[1] = trabajo.getCliente().getNombre();
+        datos[2] = trabajo.getCliente().getDireccion().getColonia();
+        datos[3] = DateUtil.format(trabajo.getFechaAnticipo());
+        datos[4] = DateUtil.format(trabajo.getFechaAnticipo());
+        datos[5] = String.valueOf(trabajo.calcularCostoTotal());
+        datos[6] = null; //TODO saldo pendiente de trabajo
+        return datos;
     }
 
+    @Override
+    protected void eliminarElementoDB(Trabajo selected) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void guardarElementoDB(Trabajo selected) throws UnableToSaveException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void actualizarElementoDB(Trabajo selected) throws UnableToSaveException {
+        
+    }
+
     
-    /**
-    * Fills all text fields to show details about the client.
-    * If the specified client is null, all text fields are cleared.
-    * 
-    * @param person the person or null
-    */
-   private void showTrabajoDetails(Trabajo trabajo) {
-       if (trabajo != null) {
-           // Fill the labels with info from the client object.
-           idLabel.setText(String.valueOf(trabajo.getId()));
-           clienteLabel.setText(trabajo.getCliente().getNombre());
-           fechaAnticipoLabel.setText(DateUtil.format(trabajo.getFechaAnticipo()));
-           fechaInicioLabel.setText(DateUtil.format(trabajo.getFechaInicio()));
-           fechaTerminoLabel.setText(DateUtil.format(trabajo.getFechaTermino()));
-           fechaInstalacionLabel.setText(DateUtil.format(trabajo.getFechaInstalacion()));
-       } else {
-           // Fill the labels with info from the client object.
-           idLabel.setText("");
-           clienteLabel.setText("");
-           fechaAnticipoLabel.setText("");
-           fechaInicioLabel.setText("");
-           fechaTerminoLabel.setText("");
-           fechaInstalacionLabel.setText("");
-       }
-   }
+    
+    
+   
     
     
 }

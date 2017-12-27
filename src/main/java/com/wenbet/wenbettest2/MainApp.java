@@ -43,6 +43,7 @@ public class MainApp extends Application {
     private final ColorService colorService = new ColorService();
     private final ActividadService actividadService = new ActividadService();
     private final ProductoService productoService = new ProductoService();
+    private final TrabajoService trabajoService = new TrabajoService();
 
     public MainApp() {
         SQLServerDriver a = new SQLServerDriver();
@@ -60,13 +61,13 @@ public class MainApp extends Application {
         
         initRootLayout();
 
-        //showTrabajoPrincipal();
+        showTrabajoPrincipal();
         //showTipoProductoPrincipal();
         //showClientePrincipal();
         //showTrabajadorPrincipal();
         //showColorPrincipal();
         //showActividadPrincipal();
-        showProductoPrincipal();
+        //showProductoPrincipal();
     }
 
     /**
@@ -215,6 +216,10 @@ public class MainApp extends Application {
 
     public ProductoService getProductoService() {
         return productoService;
+    }
+
+    public TrabajoService getTrabajoService() {
+        return trabajoService;
     }
     
     

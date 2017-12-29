@@ -19,9 +19,9 @@
                            <children>
                               <HBox layoutX="14.0" layoutY="15.0" spacing="10.0" AnchorPane.leftAnchor="10.0">
                                  <children>
-                                    <Button defaultButton="true" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Nuevo" />
-                                    <Button layoutX="66.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Editar" />
-                                    <Button layoutX="118.0" layoutY="66.0" mnemonicParsing="false" prefWidth="80.0" text="Eliminar" />
+                                    <Button defaultButton="true" layoutX="14.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleNew" prefWidth="80.0" text="Nuevo" />
+                                    <Button layoutX="66.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleEdit" prefWidth="80.0" text="Editar" />
+                                    <Button layoutX="118.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleDelete" prefWidth="80.0" text="Eliminar" />
                                  </children>
                               </HBox>
                               <HBox layoutX="348.0" layoutY="15.0" AnchorPane.rightAnchor="10.0">

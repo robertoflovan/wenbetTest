@@ -10,6 +10,7 @@ import com.wenbet.wenbettest2.dao.TrabajadorDAO;
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
 import com.wenbet.wenbettest2.modelo.Actividad;
 import com.wenbet.wenbettest2.modelo.Cliente;
+import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.Direccion;
 import com.wenbet.wenbettest2.modelo.HoraTrabajada;
 import com.wenbet.wenbettest2.modelo.Producto;
@@ -19,6 +20,7 @@ import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.modelo.TrabajoProducto;
 import com.wenbet.wenbettest2.service.ActividadService;
 import com.wenbet.wenbettest2.service.ClienteService;
+import com.wenbet.wenbettest2.service.ColorService;
 import com.wenbet.wenbettest2.service.DireccionService;
 import com.wenbet.wenbettest2.service.HoraTrabajadaService;
 import com.wenbet.wenbettest2.service.ProductoService;
@@ -48,6 +50,7 @@ public class TestDatosPrueba {
         ProductoService ps = new ProductoService();
         TrabajoService trabajoService = new TrabajoService();
         TrabajoProductoService trabajoProductoService = new TrabajoProductoService();
+        ColorService cos = new ColorService();
         
         Actividad soldar = new Actividad("Soldar");
         Actividad puntar = new Actividad("pintar");
@@ -70,11 +73,16 @@ public class TestDatosPrueba {
         
         List<TrabajoProducto> ltp = new ArrayList<TrabajoProducto>();
         
+        Color c = new Color();
+        c.setNombre("otro");
+        c.setMarca("otro");
+        
         
         
         Trabajo t = new Trabajo();
         t.setCliente(cliente1);
         t.setFechaAnticipo(LocalDate.now());
+        t.setColor(c);
         
         
         tp.setTrabajo(t);
@@ -89,6 +97,9 @@ public class TestDatosPrueba {
         HoraTrabajada ht = new HoraTrabajada("1", soldar, juan, t);
         
         try {
+            
+            cos.GuardarColor(c);
+            
             tps.GuardarTipoProducto(tipoProducto1);
             ps.GuardarProducto(producto1);
             ps.GuardarProducto(producto2);
@@ -108,7 +119,7 @@ public class TestDatosPrueba {
             
         } catch (UnableToSaveException ex) {
             Logger.getLogger(TestHoraTrabajada.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("c murio");
+            System.out.println("c murio (datos de prueba)");
         }
     }
     

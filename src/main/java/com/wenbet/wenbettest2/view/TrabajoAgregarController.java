@@ -7,8 +7,10 @@ package com.wenbet.wenbettest2.view;
 
 import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.Trabajo;
+import com.wenbet.wenbettest2.modelo.TrabajoProducto;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,8 +19,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -45,6 +50,18 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     private TextArea comentariosTextArea;
     @FXML
     private ComboBox<String> terminoPagoCombo;
+    
+    @FXML
+    protected TableView<TrabajoProducto> productosVendidosTable;
+    @FXML
+    private TableColumn<TrabajoProducto, String> productoColumn;
+    @FXML
+    private TableColumn<TrabajoProducto, Number> cantidadColumn;
+    @FXML
+    private TableColumn<TrabajoProducto, Number> precioColumn;
+    
+    @FXML
+    private GridPane terminoPagoGrid;
     
     public final String SEMANA0 = "Menos de 1 Semana";
     public final String SEMANA1 = "1 Semana";
@@ -82,6 +99,12 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         );
         
         //Inicializar tabla de trabajosProducto
+        productoColumn.setCellValueFactory(cellData -> cellData.getValue().getProducto().nombreProperty());
+        cantidadColumn.setCellValueFactory(cellData -> cellData.getValue().cantidadProperty());
+        precioColumn.setCellValueFactory(cellData -> cellData.getValue().precioProperty());
+        
+        //Ocultar seccion específica de término de pago
+        terminoPagoGrid.setDisable(true);
     }
     
     @Override
@@ -110,7 +133,23 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     }
 
     @Override
-    protected void fillData(Trabajo entidad) {
+    protected void fillData(Trabajo trabajo) {
+        ObservableList<TrabajoProducto> observableList = FXCollections.observableArrayList(trabajo.getProductosDelTrabajo());
+        ListProperty lp  = new SimpleListProperty<>(observableList);
+        productosVendidosTable.setItems(lp);
+        
+        clienteLabel.setText(trabajo.getCliente().getNombre());
+        colorLabel.setText(trabajo.getColor().getNombre());
+        //tiempoEstimadoCombo
+        fechaAnticipoDate.setValue(trabajo.getFechaAnticipo());
+        fechaInicioDate.setValue(trabajo.getFechaInicio());
+        fechaTerminoDate.setValue(trabajo.getFechaTermino());
+        fechaInstalacionDate.setValue(trabajo.getFechaInstalacion());
+        comentariosTextArea.setText(trabajo.getComentarios());
+        //terminoPagoCombo
+        
+        
+        
 //        nombreField.setText(entidad.getNombre());
 //        marcaField.setText(entidad.getMarca());
     }

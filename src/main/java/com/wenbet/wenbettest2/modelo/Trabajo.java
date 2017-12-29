@@ -64,6 +64,8 @@ public class Trabajo implements Serializable{
     
     
     public Trabajo() {
+        this.cliente.set(new Cliente());
+        this.color.set(new Color());
         
     }
     

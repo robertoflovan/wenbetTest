@@ -5,9 +5,15 @@
  */
 package com.wenbet.wenbettest2.view;
 
+import com.wenbet.wenbettest2.modelo.Cliente;
 import com.wenbet.wenbettest2.modelo.Color;
+import com.wenbet.wenbettest2.modelo.IModel;
+import com.wenbet.wenbettest2.modelo.Producto;
+import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.modelo.TrabajoProducto;
+import com.wenbet.wenbettest2.util.ListUtil;
+import com.wenbet.wenbettest2.util.VistaUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.ListProperty;
@@ -16,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -32,6 +39,11 @@ import javafx.scene.layout.GridPane;
  */
 public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
 
+    
+    private Cliente cliente;
+    private Color color;
+    private ListProperty<TrabajoProducto> productos = ListUtil.inicializarListProperty();
+    
     @FXML
     private Label clienteLabel;
     @FXML
@@ -61,6 +73,11 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     private TableColumn<TrabajoProducto, Number> precioColumn;
     
     @FXML
+    private Label anticipoDeLabel;
+    @FXML
+    private CheckBox anticipoDineroCheck;
+    
+    @FXML
     private GridPane terminoPagoGrid;
     
     public final String SEMANA0 = "Menos de 1 Semana";
@@ -72,7 +89,7 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     
     public final String TERMINO0 = "50% de anticipo y 50% al instalar";
     public final String TERMINO1 = "50% de anticipo y dos pagos de 25%";
-    public final String TERMINO_OTRO = "Más de 1 mes";
+    public final String TERMINO_OTRO = "Otro";
     
     /**
      * Initializes the controller class.
@@ -90,6 +107,7 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
             SEMANA4,
             SEMANA5
         );
+        tiempoEstimadoCombo.getSelectionModel().select(SEMANA4);
         
         //Inicializar comboBox terminos de pago
         terminoPagoCombo.getItems().addAll(
@@ -97,6 +115,7 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
             TERMINO1,
             TERMINO_OTRO
         );
+        terminoPagoCombo.getSelectionModel().selectFirst();
         
         //Inicializar tabla de trabajosProducto
         productoColumn.setCellValueFactory(cellData -> cellData.getValue().getProducto().nombreProperty());
@@ -105,6 +124,18 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         
         //Ocultar seccion específica de término de pago
         terminoPagoGrid.setDisable(true);
+        
+        //Inicializar productos del trabajo
+        //this.productos.setAll()
+    }
+    
+    @FXML
+    private void handleTerminoPagoCombo(){
+        if (terminoPagoCombo.getSelectionModel().getSelectedItem().equals(TERMINO_OTRO)) {
+            terminoPagoGrid.setDisable(false);
+        }else{
+            terminoPagoGrid.setDisable(true);
+        }
     }
     
     @Override
@@ -160,6 +191,42 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
 //        entidad.setMarca(marcaField.getText());
     }
 
+    @FXML
+    private void handleSeleccionarCliente(){
+       IModel c = VistaUtil.showVistaSeleccion(mainApp.getClienteService().ListarClientes(), "Cliente", Cliente.class, mainApp);
+       if (c != null) {
+           this.cliente = (Cliente) c;
+           clienteLabel.setText(this.cliente.getNombre());
+       }
+    }
     
+    @FXML
+    private void handleSeleccionarColor(){
+        IModel c = VistaUtil.showVistaSeleccion(mainApp.getColorService().ListarColores(), "Color", Color.class, mainApp);
+        if (c != null) {
+           this.color = (Color) c;
+           colorLabel.setText(this.color.getNombre() + "(" + this.color.getMarca() + ")");
+        }
+    }
+    
+    @FXML
+    private void handleAnticipoDinero(){
+        if (anticipoDineroCheck.isSelected()) {
+            anticipoDeLabel.setText("Anticipo de ($)");
+        } else {
+            anticipoDeLabel.setText("Anticipo de (%)");
+        }
+    }
+    
+    @FXML
+    private void handleSeleccionarProducto(){
+        //Crear una variable de producto temporal y luego al precionar agregar tomarla con los datos de los otros campos para agregar a la tabla un nuevo producto de trabajo
+//        IModel p = VistaUtil.showVistaSeleccion(mainApp.getProductoService().ListarProductos(), "Producto", Producto.class, mainApp);
+//        if (p != null) {
+//           Producto nuevoProducto = (Producto) p;
+//           productosVendidosTable.getItems().add(nuevoProducto);
+//           //clienteLabel.setText(this.cliente.getNombre());
+//        }
+    }
     
 }

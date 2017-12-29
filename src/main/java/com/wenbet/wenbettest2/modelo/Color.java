@@ -20,7 +20,7 @@ import javax.persistence.Id;
  * @author Roberto
  */
 @Entity
-public class Color implements Serializable{
+public class Color implements IModel{
     
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();

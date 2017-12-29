@@ -24,7 +24,7 @@ import javax.persistence.OneToOne;
  * @author Roberto
  */
 @Entity
-public class Cliente implements Serializable{
+public class Cliente implements IModel{
     
     private long id;
     private final StringProperty nombre = new SimpleStringProperty();

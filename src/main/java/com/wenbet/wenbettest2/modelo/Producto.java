@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
  * @author Roberto
  */
 @Entity
-public class Producto implements Serializable{
+public class Producto implements IModel{
     
     private long id;
     

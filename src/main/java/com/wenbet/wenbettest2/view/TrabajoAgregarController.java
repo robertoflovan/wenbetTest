@@ -218,9 +218,20 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         }
     }
     
+    private Producto productoTemp = null;
+    @FXML
+    private Label productoLabel;
+    
     @FXML
     private void handleSeleccionarProducto(){
+        IModel c = VistaUtil.showVistaSeleccion(mainApp.getColorService().ListarColores(), "Color", Color.class, mainApp);
+        if (c != null) {
+           this.productoTemp = (Producto) c;
+           productoLabel.setText(this.productoTemp.getNombre());
+        }
         //Crear una variable de producto temporal y luego al precionar agregar tomarla con los datos de los otros campos para agregar a la tabla un nuevo producto de trabajo
+        //Luego de agregarse la variable temporal será nula para estar lista para agregar un nuevo producto
+        
 //        IModel p = VistaUtil.showVistaSeleccion(mainApp.getProductoService().ListarProductos(), "Producto", Producto.class, mainApp);
 //        if (p != null) {
 //           Producto nuevoProducto = (Producto) p;

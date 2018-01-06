@@ -35,8 +35,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button defaultButton="true" mnemonicParsing="false" text="+Producto" />
-                                    <Label text="1 - Protección estandar" GridPane.columnIndex="1" />
+                                    <Button fx:id="handleSeleccionarProducto" defaultButton="true" mnemonicParsing="false" text="+Producto" />
+                                    <Label fx:id="productoLabel" text="1 - Protección estandar" GridPane.columnIndex="1" />
                                     <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="301.0" text="Cantidad" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets right="10.0" />

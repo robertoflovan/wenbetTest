@@ -35,23 +35,23 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Button fx:id="handleSeleccionarProducto" defaultButton="true" mnemonicParsing="false" text="+Producto" />
-                                    <Label fx:id="productoLabel" text="1 - Protección estandar" GridPane.columnIndex="1" />
+                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#handleSeleccionarProducto" text="+Producto" />
+                                    <Label fx:id="productoLabel" GridPane.columnIndex="1" />
                                     <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="301.0" text="Cantidad" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField GridPane.columnIndex="3" />
+                                    <TextField fx:id="cantidadProductoField" GridPane.columnIndex="3" />
                                     <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="300.0" text="Precio" GridPane.columnIndex="4">
                                        <GridPane.margin>
                                           <Insets left="10.0" right="10.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextField GridPane.columnIndex="5" />
+                                    <TextField fx:id="precioProductoField" GridPane.columnIndex="5" />
                                     <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
                                        <children>
-                                          <Button alignment="CENTER_RIGHT" layoutX="4.0" layoutY="9.0" mnemonicParsing="false" text="Agregar" />
+                                          <Button alignment="CENTER_RIGHT" layoutX="4.0" layoutY="9.0" mnemonicParsing="false" onAction="#handleAgregarProducto" text="Agregar" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -111,7 +111,7 @@
                         <RowConstraints maxHeight="36.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="clienteLabel" text="1 - Antonio - Valle Oriente" GridPane.columnIndex="1">
+                        <Label fx:id="clienteLabel" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -124,7 +124,7 @@
                         <DatePicker fx:id="fechaInstalacionDate" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Fecha termino" GridPane.rowIndex="5" />
                         <Label text="Fecha instalación" GridPane.rowIndex="6" />
-                        <Label fx:id="colorLabel" text="1- Cafe chocolate (Berel)" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="colorLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <HBox spacing="10.0">
                            <children>
                               <Label prefHeight="38.0" prefWidth="37.0" text="Cliente" />

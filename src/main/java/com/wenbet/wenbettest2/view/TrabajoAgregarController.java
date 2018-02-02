@@ -140,27 +140,40 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     
     @Override
     protected boolean isInputValid() {
-        return true;
-//        String errorMessage = "";
-//
-//        if (nombreField.getText() == null || nombreField.getText().length() == 0) {
-//            errorMessage += "Nombre no valido\n"; 
-//        }
-//        if (marcaField.getText() == null || marcaField.getText().length() == 0) {
-//            errorMessage += "Marca no valida\n"; 
-//        }
-//        
-//        if (errorMessage.length() == 0) {
-//            return true;
-//        } else {
-//            // Show the error message.
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("Error al crear");
-//            alert.setContentText(errorMessage);
-//            alert.showAndWait();
-//            return false;
-//        }
+        //return true;
+        String errorMessage = "";
+
+        if (clienteLabel.getText() == null || clienteLabel.getText().length() == 0) {
+            errorMessage += "cliente no valido\n"; 
+        }
+        if (colorLabel.getText() == null || colorLabel.getText().length() == 0) {
+            errorMessage += "Color no valido\n"; 
+        }
+        if (fechaAnticipoDate.getValue() == null || fechaAnticipoDate.getValue().toString().length() == 0) {
+            errorMessage += "Fecha de anticipo no valida\n"; 
+        }
+        if (fechaInicioDate.getValue() == null || fechaInicioDate.getValue().toString().length() == 0) {
+            errorMessage += "Fecha de inicio no valida\n"; 
+        }
+        if (fechaTerminoDate.getValue() == null || fechaTerminoDate.getValue().toString().length() == 0) {
+            errorMessage += "Fecha de termino no valida\n"; 
+        }
+        if (fechaInstalacionDate.getValue() == null || fechaInstalacionDate.getValue().toString().length() == 0) {
+            errorMessage += "Fecha de instalación no valida\n"; 
+        }
+        
+        
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al crear");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            return false;
+        }
     }
 
     @Override
@@ -223,10 +236,17 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     private Label productoLabel;
     
     @FXML
+    private TextField cantidadProductoField;
+    @FXML
+    private TextField precioProductoField;
+    
+    
+    @FXML
     private void handleSeleccionarProducto(){
-        IModel c = VistaUtil.showVistaSeleccion(mainApp.getColorService().ListarColores(), "Color", Color.class, mainApp);
-        if (c != null) {
-           this.productoTemp = (Producto) c;
+        System.out.println("handleSeleccionarProducto");
+        IModel p = VistaUtil.showVistaSeleccion(mainApp.getProductoService().ListarProductos(), "Producto", Producto.class, mainApp);
+        if (p != null) {
+           this.productoTemp = (Producto) p;
            productoLabel.setText(this.productoTemp.getNombre());
         }
         //Crear una variable de producto temporal y luego al precionar agregar tomarla con los datos de los otros campos para agregar a la tabla un nuevo producto de trabajo
@@ -238,6 +258,51 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
 //           productosVendidosTable.getItems().add(nuevoProducto);
 //           //clienteLabel.setText(this.cliente.getNombre());
 //        }
+    }
+    
+    @FXML
+    private void handleAgregarProducto(){
+        if (isProductValid()) {
+            int cantidad = Integer.parseInt(cantidadProductoField.getText());
+            double precio = Double.parseDouble(precioProductoField.getText());
+
+            TrabajoProducto tp = new TrabajoProducto(cantidad, precio, productoTemp);
+
+            //Añadir el nuevo producto a la tabla de productos vendidos
+            productosVendidosTable.getItems().add(tp);
+        }
+    }
+    
+    private boolean isProductValid(){
+        String errorMessage = "";
+        
+        if (productoLabel.getText() == null || productoLabel.getText().length() == 0) {
+            errorMessage += "Producto no válido\n";
+        }
+        
+        try {
+            Integer.parseInt(cantidadProductoField.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Cantidad no válida\n";
+        }
+        
+        try {
+           Double.parseDouble(precioProductoField.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Precio no válido\n";
+        }
+        
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error al crear");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            return false;
+        }
     }
     
 }

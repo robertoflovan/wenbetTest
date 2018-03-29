@@ -68,5 +68,12 @@ public class Color implements IModel{
     public final StringProperty marcaProperty() {
         return marca;
     }
+
+    @Override
+    public String toString() {
+        return this.getNombre() + " (" + this.getMarca() + ")";
+    }
+    
+    
     
 }

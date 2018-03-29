@@ -148,5 +148,12 @@ public class Cliente implements IModel{
     public final ObjectProperty direccionProperty() {
         return direccion;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + " - " + this.getNombre() + " " + this.getApellido();
+    }
+    
+    
     
 }

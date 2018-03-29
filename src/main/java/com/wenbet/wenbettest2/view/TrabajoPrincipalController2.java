@@ -127,8 +127,9 @@ public class TrabajoPrincipalController2 extends MyInitializablePrincipal<Trabaj
     }
 
     @Override
-    protected void guardarElementoDB(Trabajo selected) throws UnableToSaveException {
-        mainApp.getTrabajoService().GuardarTrabajo(selected);
+    protected boolean guardarElementoDB(Trabajo selected) throws UnableToSaveException {
+        long id = mainApp.getTrabajoService().GuardarTrabajo(selected);
+        return id!=0;
     }
 
     @Override

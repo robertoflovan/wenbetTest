@@ -77,5 +77,12 @@ public class Producto implements IModel{
     public final ObjectProperty<TipoProducto> tipoProductoProperty() {
         return tipoProducto;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + " - " + this.getNombre() + " (" + this.getTipoProducto().getNombre() + ")";
+    }
+    
+    
     
 }

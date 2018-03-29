@@ -56,8 +56,9 @@ public class ColorPrincipalController extends MyInitializablePrincipal<Color> {
     }
 
     @Override
-    protected void guardarElementoDB(Color selected) throws UnableToSaveException{
-        mainApp.getColorService().GuardarColor(selected);
+    protected boolean guardarElementoDB(Color selected) throws UnableToSaveException{
+        long id = mainApp.getColorService().GuardarColor(selected);
+        return id!=0;
     }
 
     @Override

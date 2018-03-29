@@ -30,6 +30,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
+import com.wenbet.wenbettest2.modelo.TerminoPago;
+import com.wenbet.wenbettest2.service.TerminoPagoService;
+import com.wenbet.wenbettest2.view.RootLayoutController;
+import javafx.fxml.FXML;
 
 
 public class MainApp extends Application {
@@ -44,6 +48,7 @@ public class MainApp extends Application {
     private final ActividadService actividadService = new ActividadService();
     private final ProductoService productoService = new ProductoService();
     private final TrabajoService trabajoService = new TrabajoService();
+    private final TerminoPagoService terminoPagoService = new TerminoPagoService();
 
     public MainApp() {
         SQLServerDriver a = new SQLServerDriver();
@@ -79,6 +84,9 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/fxml/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
+            
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -202,6 +210,9 @@ public class MainApp extends Application {
         return trabajoService;
     }
     
+    public TerminoPagoService getTerminoPagoService() {
+        return terminoPagoService;
+    }
     
     
     

@@ -8,7 +8,11 @@ package com.wenbet.wenbettest2.view;
 
 
 import com.wenbet.wenbettest2.exception.UnableToSaveException;
+import com.wenbet.wenbettest2.modelo.Cliente;
+import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.IModel;
+import com.wenbet.wenbettest2.modelo.Producto;
+import com.wenbet.wenbettest2.modelo.TerminoPago;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,11 +63,20 @@ public class SeleccionController extends MyInitializableSeleccionar<IModel> {
     }
 
     @Override
-    protected void guardarElementoDB(IModel selected) throws UnableToSaveException{
+    protected boolean guardarElementoDB(IModel selected) throws UnableToSaveException{
+        long id = 0;
         if (selected instanceof TipoProducto) {
-            mainApp.getTipoProductoService().GuardarTipoProducto((TipoProducto) selected);
-        }
-        
+            id = mainApp.getTipoProductoService().GuardarTipoProducto((TipoProducto) selected);
+        } else if (selected instanceof Producto) {
+            id = mainApp.getProductoService().GuardarProducto((Producto) selected);
+        } else if (selected instanceof Cliente) {
+            id = mainApp.getClienteService().GuardarCliente((Cliente) selected);
+        } else if (selected instanceof Color) {
+            id = mainApp.getColorService().GuardarColor((Color) selected);
+        } else if (selected instanceof TerminoPago) {
+            id = mainApp.getTerminoPagoService().GuardarTerminoPago((TerminoPago) selected);
+        } 
+        return id!=0;
     }
 
     @Override

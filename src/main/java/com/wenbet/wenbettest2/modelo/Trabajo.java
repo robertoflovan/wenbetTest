@@ -277,7 +277,7 @@ public class Trabajo implements Serializable{
         terminoPago.set(value);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     public final TerminoPago getTerminoPago() {
         return terminoPago.get();
     }

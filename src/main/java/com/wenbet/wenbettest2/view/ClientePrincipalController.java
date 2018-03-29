@@ -97,8 +97,9 @@ public class ClientePrincipalController extends MyInitializablePrincipal<Cliente
     }
 
     @Override
-    protected void guardarElementoDB(Cliente selected) throws UnableToSaveException {
-            mainApp.getClienteService().GuardarCliente(selected);
+    protected boolean guardarElementoDB(Cliente selected) throws UnableToSaveException {
+            long id = mainApp.getClienteService().GuardarCliente(selected);
+            return id!=0;
     }
 
     @Override

@@ -52,8 +52,9 @@ public class ActividadPrincipalController extends MyInitializablePrincipal<Activ
     }
 
     @Override
-    protected void guardarElementoDB(Actividad selected) throws UnableToSaveException{
-        mainApp.getActividadService().GuardarActividad(selected);
+    protected boolean guardarElementoDB(Actividad selected) throws UnableToSaveException{
+        long id = mainApp.getActividadService().GuardarActividad(selected);
+        return id!=0; //Si el ID es 0 es que hay un problema al guardar en la base de datos
     }
 
     @Override

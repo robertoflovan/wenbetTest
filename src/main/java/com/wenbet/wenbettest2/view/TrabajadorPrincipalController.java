@@ -99,8 +99,9 @@ public class TrabajadorPrincipalController extends MyInitializablePrincipal<Trab
     }
 
     @Override
-    protected void guardarElementoDB(Trabajador selected) throws UnableToSaveException {
-            mainApp.getTrabajadorService().GuardarTrabajador(selected);
+    protected boolean guardarElementoDB(Trabajador selected) throws UnableToSaveException {
+            long id = mainApp.getTrabajadorService().GuardarTrabajador(selected);
+            return id!=0;
     }
 
     @Override

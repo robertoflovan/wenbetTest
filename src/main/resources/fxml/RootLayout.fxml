@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.wenbet.wenbettest2.view.RootLayoutController">
    <top>
       <MenuBar styleClass="etiqueta" BorderPane.alignment="CENTER">
         <menus>
@@ -26,6 +26,17 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Modulos">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuTrabajos" text="Trabajos" />
+                <MenuItem mnemonicParsing="false" onAction="#handleMenuClientes" text="Cleintes" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuTrabajadores" text="Trabajadores" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuProductos" text="Productos" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuTipoProducto" text="Tipos de productos" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuColores" text="Colores trabajo" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuActividades" text="Actividades de trabajo" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

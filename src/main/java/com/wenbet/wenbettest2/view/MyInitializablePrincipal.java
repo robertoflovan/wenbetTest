@@ -11,6 +11,7 @@ import com.wenbet.wenbettest2.util.DialogUtil;
 import com.wenbet.wenbettest2.util.VistaUtil;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.Observable;
@@ -21,6 +22,8 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -108,7 +111,7 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
     
     protected abstract void eliminarElementoDB(T selected) throws Exception;
     
-    protected abstract void guardarElementoDB(T selected) throws UnableToSaveException;
+    protected abstract boolean guardarElementoDB(T selected) throws UnableToSaveException;
     
     protected abstract void actualizarElementoDB(T selected) throws UnableToSaveException;
     
@@ -162,7 +165,9 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
    private boolean guardarElemento(T entidad){
        boolean success = true;
         try {
-            guardarElementoDB(entidad);
+            if (!guardarElementoDB(entidad)) {
+                success = false;
+            }
         } catch (UnableToSaveException ex) {
             success = false;
             DialogUtil.showExceptionDialog(ex);
@@ -209,9 +214,18 @@ public abstract class MyInitializablePrincipal<T extends Serializable> implement
     protected void handleDelete() {
        T selected = principalTable.getSelectionModel().getSelectedItem();
        if (selected != null) {
-            if (eliminarElemento(selected)) {
-               masterData.remove(selected);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Eliminar registro");
+            alert.setContentText("¿Estás seguro de que deseas eliminar este registro?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                if (eliminarElemento(selected)) {
+                    masterData.remove(selected);
+                }
             }
+            
        } else {
            // Nothing selected.
            Alert alert = new Alert(Alert.AlertType.ERROR);

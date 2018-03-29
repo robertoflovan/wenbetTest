@@ -58,4 +58,11 @@ public class TipoProducto implements IModel{
         return nombre;
     }
 
+    @Override
+    public String toString() {
+        return this.getId() + " - " + this.getNombre();
+    }
+    
+    
+
 }

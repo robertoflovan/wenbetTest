@@ -9,12 +9,14 @@ import com.wenbet.wenbettest2.modelo.Cliente;
 import com.wenbet.wenbettest2.modelo.Color;
 import com.wenbet.wenbettest2.modelo.IModel;
 import com.wenbet.wenbettest2.modelo.Producto;
+import com.wenbet.wenbettest2.modelo.TerminoPago;
 import com.wenbet.wenbettest2.modelo.TipoProducto;
 import com.wenbet.wenbettest2.modelo.Trabajo;
 import com.wenbet.wenbettest2.modelo.TrabajoProducto;
 import com.wenbet.wenbettest2.util.ListUtil;
 import com.wenbet.wenbettest2.util.VistaUtil;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -42,7 +44,7 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     
     private Cliente cliente;
     private Color color;
-    private ListProperty<TrabajoProducto> productos = ListUtil.inicializarListProperty();
+    //private ListProperty<TrabajoProducto> productos = ListUtil.inicializarListProperty();
     
     @FXML
     private Label clienteLabel;
@@ -149,19 +151,22 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         if (colorLabel.getText() == null || colorLabel.getText().length() == 0) {
             errorMessage += "Color no valido\n"; 
         }
-        if (fechaAnticipoDate.getValue() == null || fechaAnticipoDate.getValue().toString().length() == 0) {
-            errorMessage += "Fecha de anticipo no valida\n"; 
-        }
-        if (fechaInicioDate.getValue() == null || fechaInicioDate.getValue().toString().length() == 0) {
-            errorMessage += "Fecha de inicio no valida\n"; 
-        }
-        if (fechaTerminoDate.getValue() == null || fechaTerminoDate.getValue().toString().length() == 0) {
-            errorMessage += "Fecha de termino no valida\n"; 
-        }
-        if (fechaInstalacionDate.getValue() == null || fechaInstalacionDate.getValue().toString().length() == 0) {
-            errorMessage += "Fecha de instalación no valida\n"; 
-        }
+//        if (fechaAnticipoDate.getValue() == null || fechaAnticipoDate.getValue().toString().length() == 0) {
+//            errorMessage += "Fecha de anticipo no valida\n"; 
+//        }
+//        if (fechaInicioDate.getValue() == null || fechaInicioDate.getValue().toString().length() == 0) {
+//            errorMessage += "Fecha de inicio no valida\n"; 
+//        }
+//        if (fechaTerminoDate.getValue() == null || fechaTerminoDate.getValue().toString().length() == 0) {
+//            errorMessage += "Fecha de termino no valida\n"; 
+//        }
+//        if (fechaInstalacionDate.getValue() == null || fechaInstalacionDate.getValue().toString().length() == 0) {
+//            errorMessage += "Fecha de instalación no valida\n"; 
+//        }
         
+        if (productosVendidosTable.getItems().isEmpty()) {
+            errorMessage += "Se debe añadir almenos un producto\n"; 
+        }
         
         if (errorMessage.length() == 0) {
             return true;
@@ -202,6 +207,42 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     protected void actualizarEntidad(Trabajo entidad) {
 //        entidad.setNombre(nombreField.getText());
 //        entidad.setMarca(marcaField.getText());
+
+        entidad.setFechaAnticipo(fechaAnticipoDate.getValue());
+        entidad.setFechaInicio(fechaInicioDate.getValue());
+        entidad.setFechaTermino(fechaTerminoDate.getValue());
+        entidad.setFechaInstalacion(fechaInstalacionDate.getValue());
+        
+        if (comentariosTextArea.getText() == null || comentariosTextArea.getText().length() == 0) {
+            entidad.setComentarios(comentariosTextArea.getText());
+        }else{
+            entidad.setComentarios("");
+        }
+        
+        entidad.setTiempoEstimadoTermino(tiempoEstimadoCombo.getSelectionModel().getSelectedItem());
+        entidad.setCostoTotal(calcularCostoTotal());
+        entidad.setCliente(cliente);
+        entidad.setColor(color);
+        entidad.setProductosDelTrabajo(productosVendidosTable.getItems());
+        
+        //50% de anticipo y 50% al instalar por default
+        TerminoPago t = new TerminoPago(0, 2);
+        if (terminoPagoCombo.getValue().equals(TERMINO1)) {
+            //50% anticipo y dos pagos de 25%
+            t = new TerminoPago(0, 3);
+        }
+        entidad.setTerminoPago(t);
+        
+
+    }
+    
+    private double calcularCostoTotal(){
+        double res = 0;
+        ObservableList<TrabajoProducto> productos = this.productosVendidosTable.getItems();
+        for (TrabajoProducto producto : productos) {
+            res+=producto.getPrecio();
+        }
+        return res;
     }
 
     @FXML

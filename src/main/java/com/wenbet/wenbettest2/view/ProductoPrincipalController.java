@@ -56,8 +56,9 @@ public class ProductoPrincipalController extends MyInitializablePrincipal<Produc
     }
 
     @Override
-    protected void guardarElementoDB(Producto selected) throws UnableToSaveException{
-        mainApp.getProductoService().GuardarProducto(selected);
+    protected boolean guardarElementoDB(Producto selected) throws UnableToSaveException{
+        long id = mainApp.getProductoService().GuardarProducto(selected);
+        return id!=0;
     }
 
     @Override

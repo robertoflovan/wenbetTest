@@ -188,7 +188,9 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         productosVendidosTable.setItems(lp);
         
         clienteLabel.setText(trabajo.getCliente().getNombre());
+        this.cliente = trabajo.getCliente();
         colorLabel.setText(trabajo.getColor().getNombre());
+        this.color = trabajo.getColor();
         //tiempoEstimadoCombo
         fechaAnticipoDate.setValue(trabajo.getFechaAnticipo());
         fechaInicioDate.setValue(trabajo.getFechaInicio());
@@ -312,6 +314,23 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
             //Añadir el nuevo producto a la tabla de productos vendidos
             productosVendidosTable.getItems().add(tp);
         }
+    }
+    
+    @FXML
+    private void handleEliminarProducto(){
+        //TODO: No está actualizando los productos eliminados
+        
+//        TrabajoProducto selected = productosVendidosTable.getSelectionModel().getSelectedItem();
+//        if (selected != null) {
+//            productosVendidosTable.getItems().remove(selected);
+//       } else {
+//           // Nothing selected.
+//           Alert alert = new Alert(Alert.AlertType.ERROR);
+//           alert.setTitle("Error");
+//           alert.setHeaderText("Error al eliminar");
+//           alert.setContentText("No se ha seleccionado nada para eliminar");
+//           alert.showAndWait();
+//       }
     }
     
     private boolean isProductValid(){

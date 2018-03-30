@@ -69,7 +69,7 @@
                                     <HBox layoutX="14.0" layoutY="10.0" spacing="10.0">
                                        <children>
                                           <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" text="Editar" />
-                                          <Button layoutX="66.0" layoutY="10.0" mnemonicParsing="false" text="Eliminar" />
+                                          <Button layoutX="66.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleEliminarProducto" text="Eliminar" />
                                        </children>
                                     </HBox>
                                  </children>

@@ -62,8 +62,8 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("WenbetTest");
 
         //Colocar datos de prueba en la base de datos
-        TestDatosPrueba.datosPrueba();
-        
+        //TestDatosPrueba.datosPrueba();
+
         initRootLayout();
 
         showTrabajoPrincipal();

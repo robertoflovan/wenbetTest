@@ -17,6 +17,7 @@ import com.wenbet.wenbettest2.util.ListUtil;
 import com.wenbet.wenbettest2.util.VistaUtil;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -225,7 +226,14 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
         entidad.setCostoTotal(calcularCostoTotal());
         entidad.setCliente(cliente);
         entidad.setColor(color);
-        entidad.setProductosDelTrabajo(productosVendidosTable.getItems());
+        
+        //Antes de añadir los productos al trabajo, le decimos a los productos de qué trabajo son
+        List<TrabajoProducto> productos = productosVendidosTable.getItems();
+        productos.forEach((producto) -> {
+            producto.setTrabajo(entidad);
+        });
+        
+        entidad.setProductosDelTrabajo(productos);
         
         //50% de anticipo y 50% al instalar por default
         TerminoPago t = new TerminoPago(0, 2);
@@ -234,6 +242,8 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
             t = new TerminoPago(0, 3);
         }
         entidad.setTerminoPago(t);
+        
+        
         
 
     }
@@ -310,6 +320,7 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
             double precio = Double.parseDouble(precioProductoField.getText());
 
             TrabajoProducto tp = new TrabajoProducto(cantidad, precio, productoTemp);
+            
 
             //Añadir el nuevo producto a la tabla de productos vendidos
             productosVendidosTable.getItems().add(tp);
@@ -320,17 +331,17 @@ public class TrabajoAgregarController extends MyInitializableAgregar<Trabajo> {
     private void handleEliminarProducto(){
         //TODO: No está actualizando los productos eliminados
         
-//        TrabajoProducto selected = productosVendidosTable.getSelectionModel().getSelectedItem();
-//        if (selected != null) {
-//            productosVendidosTable.getItems().remove(selected);
-//       } else {
-//           // Nothing selected.
-//           Alert alert = new Alert(Alert.AlertType.ERROR);
-//           alert.setTitle("Error");
-//           alert.setHeaderText("Error al eliminar");
-//           alert.setContentText("No se ha seleccionado nada para eliminar");
-//           alert.showAndWait();
-//       }
+        TrabajoProducto selected = productosVendidosTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            productosVendidosTable.getItems().remove(selected);
+       } else {
+           // Nothing selected.
+           Alert alert = new Alert(Alert.AlertType.ERROR);
+           alert.setTitle("Error");
+           alert.setHeaderText("Error al eliminar");
+           alert.setContentText("No se ha seleccionado nada para eliminar");
+           alert.showAndWait();
+       }
     }
     
     private boolean isProductValid(){
